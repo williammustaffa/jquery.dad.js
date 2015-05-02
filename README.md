@@ -20,7 +20,7 @@ $(function(){
 You can call options width a JSON object.
 * target: '.selector'
 
-For more info visit the [plugin website](www.konsolestudio.com/dad)
+For more info visit the [plugin website](http://www.konsolestudio.com/dad)
 
 
 

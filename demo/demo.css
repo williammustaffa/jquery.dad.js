@@ -1,0 +1,18 @@
+*{padding: 0; margin: 0;}
+body{height: 800px;background: black}
+.margin{padding:250px 0;}
+.logo{ background:  none !important}
+.logo img{display: block; padding:0 15px;}
+.dad{background: #444444}
+#daddy::after{content: '';clear: both !important; display: block}
+#daddy>div{box-sizing: border-box; width: 20%;padding:5px;  float: left; display: block; position: relative}
+#daddy>div>div{display: block;  height: 120px; line-height: 120px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #66dddd; color: white; font-family: "Arial", sans-serif;}
+
+#daddy2::after{content: '';clear: both !important; display: block}
+#daddy2>div{box-sizing: border-box; width: 100%;padding:5px;  float: left; display: block; position: relative}
+#daddy2>div>div{display: block; height: 50px; line-height: 50px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #329bdd; color: white; font-family: "Arial", sans-serif;}
+
+#daddy3::after{content: '';clear: both !important; display: block}
+#daddy3>div{box-sizing: border-box; width: 25%;padding:5px;  float: left; display: block; position: relative}
+#daddy3>div>div,.item{display: block; height: 100px; line-height: 100px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #dd4e7a; color: white; font-family: "Arial", sans-serif;}
+.item{margin:15px;display: block; background: #fddb4c }

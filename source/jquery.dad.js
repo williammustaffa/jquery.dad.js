@@ -94,11 +94,11 @@ $(function(){
                             desapear.remove();
                         })
                     }
-                    update_position();
                     holder.remove();
                     mouse.clone=false;
                     mouse.placeholder=false;
                     mouse.target=false;
+                    update_position(daddy);
                 }
                 $("html,body").removeClass('dad-noSelect');
             }
@@ -134,14 +134,13 @@ $(function(){
                  $(this).attr('data-dad-position',order);
                  order++;
              });
-             function update_position(){
-                 var order = 1;
-                 target.each(function(){
-                     console.log(this);
-                     $(this).attr('data-dad-position',order);
-                     order++;
-                 });
-             }
+            function update_position(e){
+                var order = 1;
+                e.find(jQclass).each(function(){
+                    $(this).attr('data-dad-position',order);
+                    order++;
+                });
+            }
              daddy.find(jQclass).on('mousedown touchstart',function(e){
                  if (mouse.target==false && e.which==1){
                      // GET TARGET

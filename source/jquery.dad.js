@@ -32,7 +32,7 @@
          $(this).each(function(){
              var mouse;
              mouse=new O_dad();
-             var target,active,callback,daddy,childrenClass,jQclass,cloneClass;
+             var target,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
              active=true;
              childrenClass='dads-children';
              cloneClass='dads-children-clone';
@@ -48,6 +48,11 @@
                  callback=opts.callback;
              }else{
                  callback=false;
+             }
+             if ( typeof opts != "undefined" && typeof opts.placeholder !== 'undefined'){
+                 placeholder=opts.placeholder;
+             }else{
+                 placeholder='';
              }
              me.addDropzone=function(selector,func){
                  $(selector).on('mouseenter',function(){
@@ -175,8 +180,9 @@
                          left:mouse.target.offset().left-daddy.offset().left,
                          width: mouse.target.outerWidth()-10,
                          height: mouse.target.outerHeight()-10,
-                         lineHeight: mouse.target.height()-18+'px'
-                     });
+                         lineHeight: mouse.target.height()-18+'px',
+                         textAlign: 'center'
+                     }).text(placeholder);
                      daddy.append(mouse.placeholder);
 
                      // GET OFFSET FOR CLONE

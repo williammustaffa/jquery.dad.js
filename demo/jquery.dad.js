@@ -126,7 +126,14 @@ $(function(){
                      newplace.remove();
                  }
              }
-             target.addClass(childrenClass);
+             var order = 1;
+             target.addClass(childrenClass).each(function(){
+                 if($(this).data('dad-id')==undefined){
+                     $(this).attr('data-dad-id',order);
+                 }
+                 $(this).attr('data-dad-position',order);
+                 order++;
+             });
              daddy.find(jQclass).on('mousedown touchstart',function(e){
                  if (mouse.target==false && e.which==1){
                      // GET TARGET

@@ -31,6 +31,7 @@ $(function(){
 You can call options width a JSON object.
 * target: '.selector'
 * callback: function(e){} where e is the jquery object for the dropped element
+* placeholder: string with the placeholder text on draggable area
 
 ##4.Functions
 * n.addDropzone(selector,function(e){});

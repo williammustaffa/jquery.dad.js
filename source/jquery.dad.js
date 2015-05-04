@@ -32,7 +32,8 @@
          $(this).each(function(){
              var mouse;
              mouse=new O_dad();
-             var target,callback,daddy,childrenClass,jQclass,cloneClass;
+             var target,active,callback,daddy,childrenClass,jQclass,cloneClass;
+             active=true;
              childrenClass='dads-children';
              cloneClass='dads-children-clone';
              jQclass='.dads-children';
@@ -71,6 +72,19 @@
                          }
                          $(this).removeClass('active');
                  });
+             };
+             me.getPosition=function(){
+                 var positionArray = [];
+                 $(this).find(jQclass).each(function(){
+                     positionArray[$(this).attr('data-dad-id')]=parseInt($(this).attr('data-dad-position'));
+                 });
+                 return positionArray;
+             };
+             me.activate=function(){
+               active=true;
+             };
+             me.deactivate=function(){
+               active=false;
              };
              $(document).on('mouseup',function(){
                  children_replace();
@@ -143,7 +157,7 @@
                 });
             }
              daddy.find(jQclass).on('mousedown touchstart',function(e){
-                 if (mouse.target==false && e.which==1){
+                 if (mouse.target==false && e.which==1 && active==true){
                      // GET TARGET
                      mouse.target=$(this);
 

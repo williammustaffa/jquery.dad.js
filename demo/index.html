@@ -154,6 +154,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <a class="btn btn-danger act">ACTIVE</a>
+            <a class="btn btn-danger deact">DEACTIVE</a>
+        </div>
+
     </div>
 </div>
 
@@ -174,6 +179,13 @@
         d.addDropzone('.dropzone',function(e){
             e.remove();
         });
+        $('.act').on('click',function(){
+            d.activate();
+        });
+        $('.deact').on('click',function(){
+            d.deactivate();
+        });
+
     })
 </script>
 </body>

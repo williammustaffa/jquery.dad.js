@@ -30,6 +30,17 @@ $(function(){
 ##3.Options
 You can call options width a JSON object.
 * target: '.selector'
+* callback: function(e){} where e is the jquery object for the dropped element
+
+##4.Functions
+* addDropzone(selector,function(e){});
+Sample:
+```
+var n=$('.demo').dad();
+n.addDropzone('.dropzone',function(e){
+  console.log(e); //e is the jquery object for the dropped element
+})
+```
 
 For more info visit the [plugin website](http://www.konsolestudio.com/dad)
 

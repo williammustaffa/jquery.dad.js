@@ -28,12 +28,12 @@
       <file leaf-file-name="jquery.dad.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/jquery.dad.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8" vertical-offset="2805" max-vertical-offset="3400">
-              <caret line="193" column="12" selection-start-line="193" selection-start-column="12" selection-end-line="193" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.6" vertical-offset="1275" max-vertical-offset="3400">
+              <caret line="96" column="21" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1430754553094" expanded="true" signature="4355:4367" placeholder="..." />
-                <marker date="1430754553094" expanded="true" signature="4428:4440" placeholder="..." />
+                <marker date="1430754701933" expanded="true" signature="4355:4367" placeholder="..." />
+                <marker date="1430754701933" expanded="true" signature="4428:4440" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -251,12 +251,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/jquery.dad.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8" vertical-offset="2805" max-vertical-offset="3400">
-          <caret line="193" column="12" selection-start-line="193" selection-start-column="12" selection-end-line="193" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.6" vertical-offset="1275" max-vertical-offset="3400">
+          <caret line="96" column="21" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1430754553094" expanded="true" signature="4355:4367" placeholder="..." />
-            <marker date="1430754553094" expanded="true" signature="4428:4440" placeholder="..." />
+            <marker date="1430754701933" expanded="true" signature="4355:4367" placeholder="..." />
+            <marker date="1430754701933" expanded="true" signature="4428:4440" placeholder="..." />
           </folding>
         </state>
       </provider>

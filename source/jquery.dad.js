@@ -26,7 +26,6 @@ $(function(){
         });
 
     }
-
      $.prototype.dad=function(opts){
          var me=this;
          $(this).each(function(){
@@ -95,12 +94,13 @@ $(function(){
                             desapear.remove();
                         })
                     }
+                    update_position();
                     holder.remove();
                     mouse.clone=false;
                     mouse.placeholder=false;
                     mouse.target=false;
                 }
-            $("html,body").removeClass('dad-noSelect');
+                $("html,body").removeClass('dad-noSelect');
             }
              function children_update(obj){
                  if (mouse.target!=false && mouse.clone!=false) {
@@ -126,7 +126,22 @@ $(function(){
                      newplace.remove();
                  }
              }
-             target.addClass(childrenClass);
+             var order = 1;
+             target.addClass(childrenClass).each(function(){
+                 if($(this).data('dad-id')==undefined){
+                     $(this).attr('data-dad-id',order);
+                 }
+                 $(this).attr('data-dad-position',order);
+                 order++;
+             });
+             function update_position(){
+                 var order = 1;
+                 target.each(function(){
+                     console.log(this);
+                     $(this).attr('data-dad-position',order);
+                     order++;
+                 });
+             }
              daddy.find(jQclass).on('mousedown touchstart',function(e){
                  if (mouse.target==false && e.which==1){
                      // GET TARGET
@@ -176,5 +191,4 @@ $(function(){
 
          return this;
      };
-
 });

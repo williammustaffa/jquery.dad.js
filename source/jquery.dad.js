@@ -71,6 +71,13 @@ $(function(){
                          $(this).removeClass('active');
                  });
              };
+            me.getPosition=function(){
+                var positionArray = [];
+                $(this).find(jQclass).each(function(){
+                    positionArray[$(this).attr('data-dad-id')]=parseInt($(this).attr('data-dad-position'));
+                });
+                return positionArray;
+            };
              $(document).on('mouseup',function(){
                  children_replace();
              });

@@ -4,6 +4,7 @@
  */
 
 $(function(){
+    "use strict";
     function O_dad(){
         var self=this;
         this.x=0;

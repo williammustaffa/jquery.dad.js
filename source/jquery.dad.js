@@ -3,7 +3,7 @@
  * Author William Lima
  */
 
-$(function(){
+(function( $ ){
     "use strict";
     function O_dad(){
         var self=this;
@@ -198,4 +198,4 @@ $(function(){
 
          return this;
      };
-});
+})( jQuery );

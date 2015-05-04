@@ -27,73 +27,75 @@
         });
 
     }
-     $.prototype.dad=function(opts){
-         var me=this;
-         $(this).each(function(){
-             var mouse;
-             mouse=new O_dad();
-             var target,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
-             active=true;
-             childrenClass='dads-children';
-             cloneClass='dads-children-clone';
-             jQclass='.dads-children';
-             daddy=$(this);
-             daddy.addClass('dad-container');
-             if ( typeof opts != "undefined" && typeof opts.target !== 'undefined'){
-                 target=daddy.find(opts.target);
-             }else{
-                 target=daddy.children();
-             }
-             if ( typeof opts != "undefined" && typeof opts.callback !== 'undefined'){
-                 callback=opts.callback;
-             }else{
-                 callback=false;
-             }
-             if ( typeof opts != "undefined" && typeof opts.placeholder !== 'undefined'){
-                 placeholder=opts.placeholder;
-             }else{
-                 placeholder='';
-             }
-             me.addDropzone=function(selector,func){
-                 $(selector).on('mouseenter',function(){
-                     if (mouse.target!=false) {
-                         mouse.placeholder.css({display: 'none'});
-                         mouse.target.css({display: 'none'});
+    $.prototype.dad=function(opts){
+        var me=this;
+        $(this).each(function(){
+            var mouse;
+            mouse=new O_dad();
+            var target,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
+            active=true;
+            childrenClass='dads-children';
+            cloneClass='dads-children-clone';
+            jQclass='.dads-children';
+            daddy=$(this);
+            daddy.addClass('dad-container');
+            if ( typeof opts != "undefined" && typeof opts.target !== 'undefined'){
+                target=daddy.find(opts.target);
+            }else{
+                target=daddy.children();
+            }
+            if ( typeof opts != "undefined" && typeof opts.callback !== 'undefined'){
+                callback=opts.callback;
+            }else{
+                callback=false;
+            }
+            if ( typeof opts != "undefined" && typeof opts.placeholder !== 'undefined'){
+                placeholder=opts.placeholder;
+            }else{
+                placeholder='';
+            }
+            me.addDropzone=function(selector,func){
+                $(selector).on('mouseenter',function(){
+                    if (mouse.target!=false) {
+                        mouse.placeholder.css({display: 'none'});
+                        mouse.target.css({display: 'none'});
 
-                         $(this).addClass('active');
-                     }
-                 }).on('mouseup',function(){
-                     if (mouse.target!=false) {
-                         mouse.placeholder.css({display: 'block'});
-                         mouse.target.css({display: 'block'});
-                         func(mouse.target);
-                         children_replace();
-                     }
-                     $(this).removeClass('active');
-                 }).on('mouseleave',function(){
-                         if (mouse.target!=false){
-                             mouse.placeholder.css({display: 'block'});
-                             mouse.target.css({display: 'block'});
-                         }
-                         $(this).removeClass('active');
-                 });
-             };
-             me.getPosition=function(){
-                 var positionArray = [];
-                 $(this).find(jQclass).each(function(){
-                     positionArray[$(this).attr('data-dad-id')]=parseInt($(this).attr('data-dad-position'));
-                 });
-                 return positionArray;
-             };
-             me.activate=function(){
-               active=true;
-             };
-             me.deactivate=function(){
-               active=false;
-             };
-             $(document).on('mouseup',function(){
-                 children_replace();
-             });
+                        $(this).addClass('active');
+                    }
+                }).on('mouseup',function(){
+                    if (mouse.target!=false) {
+                        mouse.placeholder.css({display: 'block'});
+                        mouse.target.css({display: 'block'});
+                        func(mouse.target);
+                        children_replace();
+                    }
+                    $(this).removeClass('active');
+                }).on('mouseleave',function(){
+                    if (mouse.target!=false){
+                        mouse.placeholder.css({display: 'block'});
+                        mouse.target.css({display: 'block'});
+                    }
+                    $(this).removeClass('active');
+                });
+            };
+            me.getPosition=function(){
+                var positionArray = [];
+                $(this).find(jQclass).each(function(){
+                    positionArray[$(this).attr('data-dad-id')]=parseInt($(this).attr('data-dad-position'));
+                });
+                return positionArray;
+            };
+            me.activate=function(){
+                active=true;
+                return me;
+            };
+            me.deactivate=function(){
+                active=false;
+                return me;
+            };
+            $(document).on('mouseup',function(){
+                children_replace();
+            });
             function children_replace(){
                 if (mouse.target!=false &&  mouse.clone!=false){
                     if (callback!=false){
@@ -122,38 +124,38 @@
                 }
                 $("html,body").removeClass('dad-noSelect');
             }
-             function children_update(obj){
-                 if (mouse.target!=false && mouse.clone!=false) {
-                     var newplace, origin;
-                     origin = $('<span style="display:none"></span>');
-                     newplace = $('<span style="display:none"></span>');
-                     if (obj.prevAll().hasClass('active')){
-                         obj.after(newplace);
-                     }else{
-                         obj.before(newplace);
-                     }
-                     mouse.target.before(origin);
-                     newplace.before(mouse.target);
-                     //update placeholder
-                     mouse.placeholder.css({
-                         top:mouse.target.offset().top-daddy.offset().top,
-                         left:mouse.target.offset().left-daddy.offset().left,
-                         width: mouse.target.outerWidth()-10,
-                         height: mouse.target.outerHeight()-10
-                     });
-                     //origin.before(obj);
-                     origin.remove();
-                     newplace.remove();
-                 }
-             }
-             var order = 1;
-             target.addClass(childrenClass).each(function(){
-                 if($(this).data('dad-id')==undefined){
-                     $(this).attr('data-dad-id',order);
-                 }
-                 $(this).attr('data-dad-position',order);
-                 order++;
-             });
+            function children_update(obj){
+                if (mouse.target!=false && mouse.clone!=false) {
+                    var newplace, origin;
+                    origin = $('<span style="display:none"></span>');
+                    newplace = $('<span style="display:none"></span>');
+                    if (obj.prevAll().hasClass('active')){
+                        obj.after(newplace);
+                    }else{
+                        obj.before(newplace);
+                    }
+                    mouse.target.before(origin);
+                    newplace.before(mouse.target);
+                    //update placeholder
+                    mouse.placeholder.css({
+                        top:mouse.target.offset().top-daddy.offset().top,
+                        left:mouse.target.offset().left-daddy.offset().left,
+                        width: mouse.target.outerWidth()-10,
+                        height: mouse.target.outerHeight()-10
+                    });
+                    //origin.before(obj);
+                    origin.remove();
+                    newplace.remove();
+                }
+            }
+            var order = 1;
+            target.addClass(childrenClass).each(function(){
+                if($(this).data('dad-id')==undefined){
+                    $(this).attr('data-dad-id',order);
+                }
+                $(this).attr('data-dad-position',order);
+                order++;
+            });
             function update_position(e){
                 var order = 1;
                 e.find(jQclass).each(function(){
@@ -161,54 +163,54 @@
                     order++;
                 });
             }
-             daddy.find(jQclass).on('mousedown touchstart',function(e){
-                 if (mouse.target==false && e.which==1 && active==true){
-                     // GET TARGET
-                     mouse.target=$(this);
+            daddy.find(jQclass).on('mousedown touchstart',function(e){
+                if (mouse.target==false && e.which==1 && active==true){
+                    // GET TARGET
+                    mouse.target=$(this);
 
-                     // ADD CLONE
-                     mouse.clone=mouse.target.clone();
-                     mouse.target.css({visibility:'hidden'}).addClass('active');
-                     mouse.clone.addClass(cloneClass);
-                     daddy.append(mouse.clone);
+                    // ADD CLONE
+                    mouse.clone=mouse.target.clone();
+                    mouse.target.css({visibility:'hidden'}).addClass('active');
+                    mouse.clone.addClass(cloneClass);
+                    daddy.append(mouse.clone);
 
-                     // ADD PLACEHOLDER
-                     mouse.placeholder=$('<div></div>');
-                     mouse.placeholder.addClass('dads-children-placeholder');
-                     mouse.placeholder.css({
-                         top:mouse.target.offset().top-daddy.offset().top,
-                         left:mouse.target.offset().left-daddy.offset().left,
-                         width: mouse.target.outerWidth()-10,
-                         height: mouse.target.outerHeight()-10,
-                         lineHeight: mouse.target.height()-18+'px',
-                         textAlign: 'center'
-                     }).text(placeholder);
-                     daddy.append(mouse.placeholder);
+                    // ADD PLACEHOLDER
+                    mouse.placeholder=$('<div></div>');
+                    mouse.placeholder.addClass('dads-children-placeholder');
+                    mouse.placeholder.css({
+                        top:mouse.target.offset().top-daddy.offset().top,
+                        left:mouse.target.offset().left-daddy.offset().left,
+                        width: mouse.target.outerWidth()-10,
+                        height: mouse.target.outerHeight()-10,
+                        lineHeight: mouse.target.height()-18+'px',
+                        textAlign: 'center'
+                    }).text(placeholder);
+                    daddy.append(mouse.placeholder);
 
-                     // GET OFFSET FOR CLONE
-                     var difx,dify;
-                     var bLeft =Math.floor(parseFloat(daddy.css('border-left-width')));
-                     var bTop =Math.floor(parseFloat(daddy.css('border-top-width')));
-                     difx=mouse.x-mouse.target.offset().left+daddy.offset().left+bLeft;
-                     dify=mouse.y-mouse.target.offset().top+daddy.offset().top+bTop;
-                     mouse.cloneoffset.x=difx;
-                     mouse.cloneoffset.y=dify;
+                    // GET OFFSET FOR CLONE
+                    var difx,dify;
+                    var bLeft =Math.floor(parseFloat(daddy.css('border-left-width')));
+                    var bTop =Math.floor(parseFloat(daddy.css('border-top-width')));
+                    difx=mouse.x-mouse.target.offset().left+daddy.offset().left+bLeft;
+                    dify=mouse.y-mouse.target.offset().top+daddy.offset().top+bTop;
+                    mouse.cloneoffset.x=difx;
+                    mouse.cloneoffset.y=dify;
 
-                     // REMOVE THE CHILDREN DAD CLASS AND SET THE POSITION ON SCREEN
-                     mouse.clone.removeClass(childrenClass).css({
-                         position:'absolute',
-                         top:mouse.y-mouse.cloneoffset.y,
-                         left:mouse.x-mouse.cloneoffset.x
-                     });
-                     // UNABLE THE TEXT SELECTION AND SET THE GRAB CURSOR
-                     $("html,body").addClass('dad-noSelect');
-                 }
-             }).on('mouseenter',function(){
-                 children_update($(this));
-             });
+                    // REMOVE THE CHILDREN DAD CLASS AND SET THE POSITION ON SCREEN
+                    mouse.clone.removeClass(childrenClass).css({
+                        position:'absolute',
+                        top:mouse.y-mouse.cloneoffset.y,
+                        left:mouse.x-mouse.cloneoffset.x
+                    });
+                    // UNABLE THE TEXT SELECTION AND SET THE GRAB CURSOR
+                    $("html,body").addClass('dad-noSelect');
+                }
+            }).on('mouseenter',function(){
+                children_update($(this));
+            });
 
-         });
+        });
 
-         return this;
-     };
+        return this;
+    };
 }( jQuery ));

@@ -20,7 +20,17 @@
 
 
     <script src="jquery.nicescroll.min.js"></script>
+    <script>
+        $(function(){
+            $('html').niceScroll({cursorcolor:"#639BF6",cursorwidth :10, cursorborder: 'none'});
+            $('.dad').dad();
+            var d=$('.dad2').dad();
+            d.addDropzone('.dropzone',function(e){
+                e.remove();
+            });
 
+        })
+    </script>
 
 </head>
 <body>

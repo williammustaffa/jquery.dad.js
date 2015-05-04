@@ -1,18 +1,82 @@
 *{padding: 0; margin: 0;}
-body{height: 800px;background: black}
-.margin{padding:250px 0;}
+body{font-family:"bebas_neueregular", sans-serif;height: 800px;background: black}
+h2{font-size:30px;padding:120px 0 20px 0; color: #639BF6}
+h3{padding:60px 0 20px 0; font-weight: bold;color: #639BF6}
+
+.margin{padding:100px 0;}
 .logo{ background:  none !important}
 .logo img{display: block; padding:0 15px;}
-.dad{background: #444444}
+.dad{}
 #daddy::after{content: '';clear: both !important; display: block}
 #daddy>div{box-sizing: border-box; width: 20%;padding:5px;  float: left; display: block; position: relative}
-#daddy>div>div{display: block;  height: 120px; line-height: 120px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #66dddd; color: white; font-family: "Arial", sans-serif;}
+#daddy>div>div{display: block;  height: 120px; line-height: 120px; text-align: center; font-size: 30px; font-weight: bold; background: #639BF6; color: white; font-family: "Arial", sans-serif;}
 
 #daddy2::after{content: '';clear: both !important; display: block}
 #daddy2>div{box-sizing: border-box; width: 100%;padding:5px;  float: left; display: block; position: relative}
-#daddy2>div>div{display: block; height: 50px; line-height: 50px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #329bdd; color: white; font-family: "Arial", sans-serif;}
+#daddy2>div>div{display: block; height: 50px; line-height: 50px; text-align: center; font-size: 30px; font-weight: bold; background: #639BF6; color: white; font-family: "Arial", sans-serif;}
 
 #daddy3::after{content: '';clear: both !important; display: block}
 #daddy3>div{box-sizing: border-box; width: 25%;padding:5px;  float: left; display: block; position: relative}
-#daddy3>div>div,.item{display: block; height: 100px; line-height: 100px; text-align: center; font-size: 30px; font-weight: bold; display: block;background: #dd4e7a; color: white; font-family: "Arial", sans-serif;}
-.item{margin:15px;display: block; background: #fddb4c }
+#daddy3>div>div,.item{display: block; height: 100px; line-height: 100px; text-align: center; font-size: 30px; font-weight: bold; background: #639BF6; color: white; font-family: "Arial", sans-serif;}
+.item{margin:15px;display: block; background: #639BF6 }
+.comments{background: black; margin: 50px 0 0 0; padding: 30px;}
+footer{display: block; margin-top: 100px; padding: 20px 0; background:  #000000 ;}
+footer img{width: 150px;}
+footer span{color: #639BF6; font-size: 21px; font-weight: bold; text-align: center; display: block}
+.downloadContainer{max-width:100%;display: block; position: relative; width: 716px; margin:150px auto 0 auto;}
+.button{max-width:100%;border:4px solid #639BF6;box-sizing:border-box;display: block; float: left; width: 716px; margin:4px; color: #000000; text-align: center; font-size: 21px; padding: 10px 20px ; background: #639BF6;}
+.button:hover{background: transparent;cursor: pointer; border:4px solid #639BF6;text-decoration: none; color: #639BF6;}
+.desc{font-size: 21px;}
+.dropzone::before{
+    -webkit-transition:  0.5s ease-in-out;
+    -moz-transition:  0.5s ease-in-out;
+    -ms-transition:  0.5s ease-in-out;
+    -o-transition:  0.5s ease-in-out;
+    transition:  0.5s ease-in-out;
+    content: "Drop here to remove"; line-height: 260px; text-align: center;width: 100%;display: block; font-size: 26px;}
+.dropzone{
+    border: 4px dashed #639BF6;
+    color: #639BF6;
+    min-height: 260px;
+    -webkit-transition:  0.5s ease-in-out;
+    -moz-transition:  0.5s ease-in-out;
+    -ms-transition:  0.5s ease-in-out;
+    -o-transition:  0.5s ease-in-out;
+    transition:  0.5s ease-in-out;
+    opacity:0.3
+}
+.dropzone.active{opacity:1;}
+/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: #333; -webkit-border-radius: 0 !important; -o-border-radius: 0 !important; -moz-border-radius: 0 !important;border-radius: 0 !important; border: 0 none !important;}
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+    pre.prettyprint { background-color: none }
+    pre .str, code .str { color: #060 }
+    pre .kwd, code .kwd { color: #006; font-weight: bold }
+    pre .com, code .com { color: #600; font-style: italic }
+    pre .typ, code .typ { color: #404; font-weight: bold }
+    pre .lit, code .lit { color: #044 }
+    pre .pun, code .pun { color: #440 }
+    pre .pln, code .pln { color: #000 }
+    pre .tag, code .tag { color: #006; font-weight: bold }
+    pre .atn, code .atn { color: #404 }
+    pre .atv, code .atv { color: #060 }
+}

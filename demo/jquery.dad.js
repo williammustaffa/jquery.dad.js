@@ -1,8 +1,10 @@
-
+/*!
+ * jquery.dad.js v1 (http://konsolestudio.com/dad)
+ * Author William Lima
+ */
 
 $(function(){
-    var __id=0;
-    function Mouse(){
+    function O_dad(){
         var self=this;
         this.x=0;
         this.y=0;
@@ -19,97 +21,96 @@ $(function(){
 
             }
         };
-        this.clearClone=function(){
-            self.clone.remove();
-            self.clone=false;
-        };
-        this.clearPlaceholder=function(){
-            self.placeholder.remove();
-            self.placeholder=false;
-        };
-        this.freeTarget=function(){
-            self.placeholder=false;
-        };
         $(window).on('mousemove',function(e){
             self.move(e)
         });
+
     }
 
-
      $.prototype.dad=function(opts){
-         options=opts;
+         var me=this;
          $(this).each(function(){
-             var target,daddy,mouse,childrenClass,jQclass,cloneClass;
+             var mouse;
+             mouse=new O_dad();
+             var target,callback,daddy,childrenClass,jQclass,cloneClass;
              childrenClass='dads-children';
              cloneClass='dads-children-clone';
              jQclass='.dads-children';
-             mouse=new Mouse();
              daddy=$(this);
              daddy.addClass('dad-container');
              if ( typeof opts != "undefined" && typeof opts.target !== 'undefined'){
-                 target=opts.target;
+                 target=daddy.find(opts.target);
              }else{
                  target=daddy.children();
              }
-             function closestEdge(x,y,w,h) {
-                 var topEdgeDist = distMetric(x,y,w/2,0);
-                 var bottomEdgeDist = distMetric(x,y,w/2,h);
-                 var leftEdgeDist = distMetric(x,y,0,h/2);
-                 var rightEdgeDist = distMetric(x,y,w,h/2);
+             if ( typeof opts != "undefined" && typeof opts.callback !== 'undefined'){
+                 callback=opts.callback;
+             }else{
+                 callback=false;
+             }
+             me.addDropzone=function(selector,func){
+                 $(selector).on('mouseenter',function(){
+                     if (mouse.target!=false) {
+                         mouse.placeholder.css({display: 'none'});
+                         mouse.target.css({display: 'none'});
 
-                 var min = Math.min(topEdgeDist,bottomEdgeDist,leftEdgeDist,rightEdgeDist);
-                 switch (min) {
-                     case leftEdgeDist:
-                         return "left";
-                     case rightEdgeDist:
-                         return "right";
-                     case topEdgeDist:
-                         return "top";
-                     case bottomEdgeDist:
-                         return "bottom";
-                 }
-             }
-             function distMetric(x,y,x2,y2) {
-                 var xDiff = x - x2;
-                 var yDiff = y - y2;
-                 return (xDiff * xDiff) + (yDiff * yDiff);
-             }
+                         $(this).addClass('active');
+                     }
+                 }).on('mouseup',function(){
+                     if (mouse.target!=false) {
+                         mouse.placeholder.css({display: 'block'});
+                         mouse.target.css({display: 'block'});
+                         func(mouse.target);
+                         children_replace();
+                     }
+                     $(this).removeClass('active');
+                 }).on('mouseleave',function(){
+                         if (mouse.target!=false){
+                             mouse.placeholder.css({display: 'block'});
+                             mouse.target.css({display: 'block'});
+                         }
+                         $(this).removeClass('active');
+                 });
+             };
+             $(document).on('mouseup',function(){
+                 children_replace();
+             });
             function children_replace(){
                 if (mouse.target!=false &&  mouse.clone!=false){
+                    if (callback!=false){
+                        callback(mouse.target);
+                    }
                     var appear=mouse.target;
                     var desapear=mouse.clone;
                     var holder=mouse.placeholder;
-                    var bLeft =Math.floor(parseFloat(daddy.css('border-left-width')));
-                    var bTop =Math.floor(parseFloat(daddy.css('border-top-width')));
-                    mouse.clone.animate({top:mouse.target.offset().top-daddy.offset().top-bTop,left:mouse.target.offset().left-daddy.offset().left-bLeft},300,function(){
-                        appear.css({visibility:'visible'}).removeClass('active');
-                        desapear.remove();
-                    });
+                    var bLeft =0;Math.floor(parseFloat(daddy.css('border-left-width')));
+                    var bTop =0;Math.floor(parseFloat(daddy.css('border-top-width')));
+                    if ($.contains(daddy[0],mouse.target[0])){
+                        mouse.clone.animate({top:mouse.target.offset().top-daddy.offset().top-bTop,left:mouse.target.offset().left-daddy.offset().left-bLeft},300,function(){
+                            appear.css({visibility:'visible'}).removeClass('active');
+                            desapear.remove();
+                        });
+                    }else{
+                        mouse.clone.fadeOut(300,function(){
+                            desapear.remove();
+                        })
+                    }
                     holder.remove();
                     mouse.clone=false;
                     mouse.placeholder=false;
                     mouse.target=false;
                 }
-                $("html,body").removeClass('dad-noSelect');
-
-
+            $("html,body").removeClass('dad-noSelect');
             }
              function children_update(obj){
                  if (mouse.target!=false && mouse.clone!=false) {
-                     var newplace, origin, edge, el_pos;
+                     var newplace, origin;
                      origin = $('<span style="display:none"></span>');
                      newplace = $('<span style="display:none"></span>');
-                     el_pos=obj.offset();
-                     edge = closestEdge(mouse.x - el_pos.left, mouse.y - el_pos.top, obj.width(), obj.height());
-                     console.log(edge);
-                     if (edge!='top'){
-                         if (obj.prev().hasClass('active')){
-                             obj.after(newplace);
-                         }else{
-                             obj.before(newplace);
-                         }
-                     }else{
+                     if (obj.prevAll().hasClass('active')){
                          obj.after(newplace);
+                     }else{
+                         obj.before(newplace);
                      }
                      mouse.target.before(origin);
                      newplace.before(mouse.target);
@@ -164,20 +165,16 @@ $(function(){
                          top:mouse.y-mouse.cloneoffset.y,
                          left:mouse.x-mouse.cloneoffset.x
                      });
-
                      // UNABLE THE TEXT SELECTION AND SET THE GRAB CURSOR
                      $("html,body").addClass('dad-noSelect');
                  }
              }).on('mouseenter',function(){
                  children_update($(this));
              });
-             $(document).on('mouseup',function(){
-                 children_replace();
-             });
-
-
 
          });
-    };
+
+         return this;
+     };
 
 });

@@ -128,6 +128,57 @@
             <div class="item">8</div>
         </div>
     </div>
+    <h3 class="text-center">Set draggable child area:</h3>
+    <div class="row dad-draggable">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                1
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                2
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                3
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                4
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                5
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                6
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                7
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="item">
+                <span class="draggable">&bull; &bull; &bull;</span>
+                8
+            </div>
+        </div>
+    </div>
     <h3 class="text-center">Droppable areas ( next version )</h3>
     <div class="row">
         <div class="cols-lg-6 col-sm-6 col-md- 12 col-xs-12">
@@ -147,8 +198,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <a class="btn btn-danger act">ACTIVE</a>
-                    <a class="btn btn-danger deact">DEACTIVE</a>
+                    <a class="btndemo act">ACTIVE</a>
+                    <a class="btndemo deact">DEACTIVE</a>
                 </div>
             </div>
         </div>
@@ -160,8 +211,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -177,17 +226,29 @@
 <script>
     $(function(){
         $('html').niceScroll({cursorcolor:"#639BF6",cursorwidth :10, cursorborder: 'none'});
+        //dad simple demo
         $('.dad').dad();
+        //dad dropzone
         var d=$('.dad2').dad();
         d.addDropzone('.dropzone',function(e){
             e.remove();
         });
+        //dad activate and deactivate
         $('.act').on('click',function(){
+            $('.btndemo').not(this).removeClass('active');
+            $(this).addClass('active');
+            d.css('opacity',1);
             d.activate();
         });
         $('.deact').on('click',function(){
+            $('.btndemo').not(this).removeClass('active');
+            $(this).addClass('active');
+            d.css('opacity',0.5);
             d.deactivate();
         });
+
+
+        $(".dad-draggable").dad({draggable:'.draggable'})
 
     })
 </script>

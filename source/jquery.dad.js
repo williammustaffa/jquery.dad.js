@@ -28,32 +28,37 @@
 
     }
     $.prototype.dad=function(opts){
-        var me=this;
+        var me,defaults,options;
+        me=this;
+        defaults={
+            target: '>div',
+            draggable:false,
+            placeholder:'drop here',
+            callback: false,
+            containerClass: 'dad-container',
+            childrenClass: 'dads-children',
+            cloneClass: 'dads-children-clone',
+            active: true
+        };
+        options=$.extend( {}, defaults, opts );
+
         $(this).each(function(){
-            var mouse;
+            var mouse,target,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
+            //SET DAD AND STARTING STATE
             mouse=new O_dad();
-            var target,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
-            active=true;
-            childrenClass='dads-children';
-            cloneClass='dads-children-clone';
-            jQclass='.dads-children';
+            active=options.active;
             daddy=$(this);
-            daddy.addClass('dad-container');
-            if ( typeof opts != "undefined" && typeof opts.target !== 'undefined'){
-                target=daddy.find(opts.target);
-            }else{
-                target=daddy.children();
-            }
-            if ( typeof opts != "undefined" && typeof opts.callback !== 'undefined'){
-                callback=opts.callback;
-            }else{
-                callback=false;
-            }
-            if ( typeof opts != "undefined" && typeof opts.placeholder !== 'undefined'){
-                placeholder=opts.placeholder;
-            }else{
-                placeholder='';
-            }
+            if (!daddy.hasClass('dad-active') && active==true) daddy.addClass('dad-active');
+            //GET SETTINGS
+            childrenClass=options.childrenClass;
+            cloneClass=options.cloneClass;
+            jQclass='.'+childrenClass;
+            daddy.addClass(options.containerClass);
+            target=daddy.find(options.target);
+            placeholder=options.placeholder;
+            callback=options.callback;
+            dragClass='dad-draggable-area';
+            //DROPZONE FUNCTION
             me.addDropzone=function(selector,func){
                 $(selector).on('mouseenter',function(){
                     if (mouse.target!=false) {
@@ -67,7 +72,7 @@
                         mouse.placeholder.css({display: 'block'});
                         mouse.target.css({display: 'block'});
                         func(mouse.target);
-                        children_replace();
+                        dad_end();
                     }
                     $(this).removeClass('active');
                 }).on('mouseleave',function(){
@@ -78,6 +83,8 @@
                     $(this).removeClass('active');
                 });
             };
+
+            //GET POSITION FUNCTION
             me.getPosition=function(){
                 var positionArray = [];
                 $(this).find(jQclass).each(function(){
@@ -85,18 +92,44 @@
                 });
                 return positionArray;
             };
+            //ACTIVATE FUNCTION
             me.activate=function(){
                 active=true;
+                if (!daddy.hasClass('dad-active')) {
+                    daddy.addClass('dad-active');
+                }
                 return me;
             };
+            //DEACTIVATE FUNCTION
             me.deactivate=function(){
                 active=false;
+                daddy.removeClass('dad-active');
                 return me;
             };
+
+            //DEFAULT DROPPING
             $(document).on('mouseup',function(){
-                children_replace();
+                dad_end();
             });
-            function children_replace(){
+            //ORDER ELEMENTS
+            var order = 1;
+            target.addClass(childrenClass).each(function(){
+                if($(this).data('dad-id')==undefined){
+                    $(this).attr('data-dad-id',order);
+                }
+                $(this).attr('data-dad-position',order);
+                order++;
+            });
+            //CREATE REORDER FUNCTION
+            function update_position(e){
+                var order = 1;
+                e.find(jQclass).each(function(){
+                    $(this).attr('data-dad-position',order);
+                    order++;
+                });
+            }
+            //END EVENT
+            function dad_end(){
                 if (mouse.target!=false &&  mouse.clone!=false){
                     if (callback!=false){
                         callback(mouse.target);
@@ -124,7 +157,8 @@
                 }
                 $("html,body").removeClass('dad-noSelect');
             }
-            function children_update(obj){
+            //UPDATE EVENT
+            function dad_update(obj){
                 if (mouse.target!=false && mouse.clone!=false) {
                     var newplace, origin;
                     origin = $('<span style="display:none"></span>');
@@ -148,26 +182,17 @@
                     newplace.remove();
                 }
             }
-            var order = 1;
-            target.addClass(childrenClass).each(function(){
-                if($(this).data('dad-id')==undefined){
-                    $(this).attr('data-dad-id',order);
-                }
-                $(this).attr('data-dad-position',order);
-                order++;
-            });
-            function update_position(e){
-                var order = 1;
-                e.find(jQclass).each(function(){
-                    $(this).attr('data-dad-position',order);
-                    order++;
-                });
-            }
-            daddy.find(jQclass).on('mousedown touchstart',function(e){
+            //GRABBING EVENT
+            var jq=(options.draggable!=false)?options.draggable:jQclass;
+            daddy.find(jq).addClass(dragClass);
+            daddy.find(jq).on('mousedown touchstart',function(e){
                 if (mouse.target==false && e.which==1 && active==true){
                     // GET TARGET
-                    mouse.target=$(this);
-
+                    if (options.draggable!=false){
+                        mouse.target=daddy.find(jQclass).has(this);
+                    }else{
+                        mouse.target=$(this);
+                    }
                     // ADD CLONE
                     mouse.clone=mouse.target.clone();
                     mouse.target.css({visibility:'hidden'}).addClass('active');
@@ -205,8 +230,9 @@
                     // UNABLE THE TEXT SELECTION AND SET THE GRAB CURSOR
                     $("html,body").addClass('dad-noSelect');
                 }
-            }).on('mouseenter',function(){
-                children_update($(this));
+            });
+            $(jQclass).on('mouseenter',function(){
+                dad_update($(this));
             });
 
         });

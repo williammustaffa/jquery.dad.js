@@ -23,11 +23,12 @@
     clear: both !important;
     display: block;
 }
-.dads-children{
+.dad-active .dad-draggable-area{
     cursor: -webkit-grab;
     cursor: -moz-grab;
 }
 .dads-children-clone{
+    opacity: 0.8;
     z-index: 9999;
     pointer-events: none;
 }

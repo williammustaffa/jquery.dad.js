@@ -29,7 +29,8 @@ $(function(){
 ```
 ##3.Options
 You can call options width a JSON object.
-* target: '.selector'
+* target: '.selector';
+* draggable: '.selector' from the target child div. 
 * callback: function(e){} where e is the jquery object for the dropped element
 * placeholder: string with the placeholder text on draggable area
 

@@ -48,13 +48,11 @@
         options=$.extend( {}, defaults, opts );
 
         $(this).each(function(){
-            var mouse,target,uniqueClass,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
+            var mouse,target,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
             //SET DAD AND STARTING STATE
             mouse=new O_dad();
             active=options.active;
             daddy=$(this);
-            uniqueClass=new Date();
-            uniqueClass='dad_'+uniqueClass.getTime();
             if (!daddy.hasClass('dad-active') && active==true) daddy.addClass('dad-active');
             //GET SETTINGS
             childrenClass=options.childrenClass;

@@ -190,7 +190,7 @@
             //GRABBING EVENT
             var jq=(options.draggable!=false)?options.draggable:jQclass;
             daddy.find(jq).addClass(dragClass);
-            daddy.on('mousedown touchstart',jq,function(e){
+            daddy.find(jq).on('mousedown touchstart',function(e){
                 if (mouse.target==false && e.which==1 && active==true){
                     // GET TARGET
                     if (options.draggable!=false){
@@ -236,7 +236,7 @@
                     $("html,body").addClass('dad-noSelect');
                 }
             });
-            daddy.on('mouseenter touchenter',jQclass,function(){
+            daddy.find(jQclass).on('mouseenter touchenter',function(){
                 dad_update($(this));
             });
 

@@ -33,6 +33,7 @@
     pointer-events: none;
 }
 .dads-children-placeholder{
+    pointer-events: none;
     overflow: hidden;
     position: absolute !important;
     box-sizing: border-box;

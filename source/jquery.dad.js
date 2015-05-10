@@ -48,7 +48,7 @@
         options=$.extend( {}, defaults, opts );
 
         $(this).each(function(){
-            var mouse,target,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
+            var mouse,target,holderClass,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
             //SET DAD AND STARTING STATE
             mouse=new O_dad();
             active=options.active;
@@ -63,13 +63,13 @@
             placeholder=options.placeholder;
             callback=options.callback;
             dragClass='dad-draggable-area';
+            holderClass='dads-children-placeholder';
             //DROPZONE FUNCTION
             me.addDropzone=function(selector,func){
                 $(selector).on('mouseenter touchenter',function(){
                     if (mouse.target!=false) {
                         mouse.placeholder.css({display: 'none'});
                         mouse.target.css({display: 'none'});
-
                         $(this).addClass('active');
                     }
                 }).on('mouseup touchend',function(){
@@ -111,8 +111,11 @@
                 daddy.removeClass('dad-active');
                 return me;
             };
-
             //DEFAULT DROPPING
+            daddy.on('DOMNodeInserted',function(e){
+                var Target=$(e.target);
+                if (!Target.hasClass(childrenClass) && !Target.hasClass(holderClass)){Target.addClass(childrenClass)};
+            });
             $(document).on('mouseup touchend',function(){
                 dad_end();
             });
@@ -206,7 +209,7 @@
 
                     // ADD PLACEHOLDER
                     mouse.placeholder=$('<div></div>');
-                    mouse.placeholder.addClass('dads-children-placeholder');
+                    mouse.placeholder.addClass(holderClass);
                     mouse.placeholder.css({
                         top:mouse.target.offset().top-daddy.offset().top,
                         left:mouse.target.offset().left-daddy.offset().left,

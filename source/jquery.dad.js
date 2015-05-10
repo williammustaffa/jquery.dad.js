@@ -5,6 +5,7 @@
 
 (function( $ ){
     "use strict";
+    var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
     function O_dad(){
         var self=this;
         this.x=0;
@@ -22,7 +23,11 @@
 
             }
         };
-        $(window).on('mousemove',function(e){
+        $(window).on('mousemove touchmove',function(e){
+            if(supportsTouch){ // Only deal with one finger hehe
+                alert(e.touches[0].pageX);
+                e = e.touches[0];
+            }
             self.move(e)
         });
 
@@ -33,7 +38,7 @@
         defaults={
             target: '>div',
             draggable:false,
-            placeholder:'drop here',
+            placeholder:'',
             callback: false,
             containerClass: 'dad-container',
             childrenClass: 'dads-children',
@@ -43,11 +48,13 @@
         options=$.extend( {}, defaults, opts );
 
         $(this).each(function(){
-            var mouse,target,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
+            var mouse,target,uniqueClass,dragClass,active,callback,placeholder,daddy,childrenClass,jQclass,cloneClass;
             //SET DAD AND STARTING STATE
             mouse=new O_dad();
             active=options.active;
             daddy=$(this);
+            uniqueClass=new Date();
+            uniqueClass='dad_'+uniqueClass.getTime();
             if (!daddy.hasClass('dad-active') && active==true) daddy.addClass('dad-active');
             //GET SETTINGS
             childrenClass=options.childrenClass;
@@ -60,14 +67,14 @@
             dragClass='dad-draggable-area';
             //DROPZONE FUNCTION
             me.addDropzone=function(selector,func){
-                $(selector).on('mouseenter',function(){
+                $(selector).on('mouseenter touchenter',function(){
                     if (mouse.target!=false) {
                         mouse.placeholder.css({display: 'none'});
                         mouse.target.css({display: 'none'});
 
                         $(this).addClass('active');
                     }
-                }).on('mouseup',function(){
+                }).on('mouseup touchend',function(){
                     if (mouse.target!=false) {
                         mouse.placeholder.css({display: 'block'});
                         mouse.target.css({display: 'block'});
@@ -75,7 +82,7 @@
                         dad_end();
                     }
                     $(this).removeClass('active');
-                }).on('mouseleave',function(){
+                }).on('mouseleave touchleave',function(){
                     if (mouse.target!=false){
                         mouse.placeholder.css({display: 'block'});
                         mouse.target.css({display: 'block'});
@@ -108,7 +115,7 @@
             };
 
             //DEFAULT DROPPING
-            $(document).on('mouseup',function(){
+            $(document).on('mouseup touchend',function(){
                 dad_end();
             });
             //ORDER ELEMENTS
@@ -231,7 +238,7 @@
                     $("html,body").addClass('dad-noSelect');
                 }
             });
-            $(jQclass).on('mouseenter',function(){
+            daddy.find(jQclass).on('mouseenter touchenter',function(){
                 dad_update($(this));
             });
 

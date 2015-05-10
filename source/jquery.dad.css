@@ -28,7 +28,7 @@
     cursor: -moz-grab;
 }
 .dads-children-clone{
-    opacity: 0.8;
+    opacity: 1;
     z-index: 9999;
     pointer-events: none;
 }

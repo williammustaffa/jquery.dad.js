@@ -32,7 +32,7 @@
         });
 
     }
-    $.prototype.dad=function(opts){
+    $.fn.dad=function(opts){
         var me,defaults,options;
         me=this;
         defaults={

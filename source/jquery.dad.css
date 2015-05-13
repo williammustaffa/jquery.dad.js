@@ -27,6 +27,12 @@
     cursor: -webkit-grab;
     cursor: -moz-grab;
 }
+.dad-draggable-area>*,.dad-draggable-area img{
+    pointer-events: none;
+}
+.dads-children.active{
+    pointer-events: none;
+}
 .dads-children-clone{
     opacity: 1;
     z-index: 9999;

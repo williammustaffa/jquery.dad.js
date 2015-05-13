@@ -60,6 +60,5 @@ For more info visit the [plugin website](http://www.konsolestudio.com/dad)
 
 
 
-
-
-
+**Donations:**
+1KqqekGTZASaF8KxUfRtuaFUtf9JXpn5hZ

@@ -1,0 +1,18 @@
+{
+  "name": "jquery.dad.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/williammustaffa/jquery.dad.js",
+  "authors": [
+    "William Lima"
+  ],
+  "description": "DAD: A simple and awesome Drag And Drop plugin! http://konsolestudio.com/dad/",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/libs",
+    "test",
+    "tests"
+  ]
+}

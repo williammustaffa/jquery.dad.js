@@ -55,7 +55,7 @@ n.deactivate();
 ```
 
 
-For more info visit the [plugin website](http://www.konsolestudio.com/dad)
+For more info visit the [plugin website](http://konsole.studio/dad)
 
 
 

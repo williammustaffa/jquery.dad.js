@@ -6,7 +6,7 @@ h3{padding:60px 0 20px 0; font-weight: bold;color: #639BF6}
 .margin{padding:100px 0;}
 .logo{ background:  none !important}
 .logo img{max-width:100%;display: block; padding:0 15px;}
-.dad{}
+
 #daddy::after{content: '';clear: both !important; display: block}
 #daddy>div{box-sizing: border-box; width: 20%;padding:5px;  float: left; display: block; position: relative}
 #daddy>div>div{display: block;  height: 120px; line-height: 120px; text-align: center; font-size: 30px; font-weight: bold; background: #639BF6; color: white; font-family: "Arial", sans-serif;}

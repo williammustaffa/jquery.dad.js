@@ -1,0 +1,22 @@
+{
+  "name": "jquery.dad.js",
+  "version": "1.0.0",
+  "description": "drag and drop plugin",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williammustaffa/jquery.dad.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williammustaffa/jquery.dad.js/issues"
+  },
+  "homepage": "https://github.com/williammustaffa/jquery.dad.js#readme",
+  "devDependencies": {
+    "express": "^4.14.0"
+  }
+}

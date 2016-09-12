@@ -6,7 +6,6 @@
 (function ($) {
   'use strict';
   var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-  var touchleave = new TouchEvent('dadtouchenter');
 
   $.fn.dad = function (opts) {
     var _this = this;
@@ -72,7 +71,7 @@
           ev = e.originalEvent.touches[0];
           var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
 
-          $(mouseTarget).trigger('dadtouchenter');
+          $(mouseTarget).trigger('touchenter');
         }
 
         mouse.move(ev);
@@ -85,7 +84,7 @@
       };
 
       _this.addDropzone = function (selector, func) {
-        $(selector).on('mouseenter dadtouchenter', function () {
+        $(selector).on('mouseenter touchenter', function () {
           if (mouse.target !== false) {
             mouse.placeholder.css({ display: 'none' });
             mouse.target.css({ display: 'none' });
@@ -298,7 +297,7 @@
         }
       });
 
-      $daddy.on('mouseenter dadtouchenter', jQclass, function () {
+      $daddy.on('mouseenter touchenter', jQclass, function () {
         dadUpdate($(this));
       });
     });

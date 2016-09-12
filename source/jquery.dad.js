@@ -6,34 +6,7 @@
 (function ($) {
   'use strict';
   var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-  function ODAD() {
-    var _this = this;
-    this.x = 0;
-    this.y = 0;
-    this.target = false;
-    this.clone = false;
-    this.placeholder = false;
-    this.cloneoffset = { x: 0, y: 0 };
-    this.move = function (e) {
-      _this.x = e.pageX;
-      _this.y = e.pageY;
-      if (_this.clone !== false && _this.target !== false) {
-        _this.clone.css({
-          top: _this.y - _this.cloneoffset.y,
-          left: _this.x - _this.cloneoffset.x,
-        });
-      }
-    };
-
-    $(window).on('mousemove touchmove', function (e) {
-      if (supportsTouch) {
-        alert(e.touches[0].pageX);
-        e = e.touches[0];
-      }
-
-      _this.move(e);
-    });
-  }
+  var touchleave = new TouchEvent('dadtouchenter');
 
   $.fn.dad = function (opts) {
     var _this = this;
@@ -52,7 +25,6 @@
     var options = $.extend({}, defaults, opts);
 
     $(this).each(function () {
-      var mouse = new ODAD();
       var active = options.active;
       var $daddy = $(this);
       var childrenClass = options.childrenClass;
@@ -64,6 +36,48 @@
       var dragClass = 'dad-draggable-area';
       var holderClass = 'dads-children-placeholder';
 
+      // HANDLE MOUSE
+      var mouse = {
+        x: 0,
+        y: 0,
+        target: false,
+        clone: false,
+        placeholder: false,
+        cloneoffset: {
+          x: 0,
+          y: 0,
+        },
+        updatePosition: function (e) {
+          this.x = e.pageX;
+          this.y = e.pageY;
+        },
+
+        move: function (e) {
+          this.updatePosition(e);
+          if (this.clone !== false && _this.target !== false) {
+            this.clone.css({
+              left: this.x - this.cloneoffset.x,
+              top: this.y - this.cloneoffset.y,
+            });
+          }
+        },
+      };
+
+      $(window).on('mousemove touchmove', function (e) {
+        var ev = e;
+
+        if (mouse.clone !== false && mouse.target !== false) e.preventDefault();
+
+        if (supportsTouch && e.type == 'touchmove') {
+          ev = e.originalEvent.touches[0];
+          var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
+
+          $(mouseTarget).trigger('dadtouchenter');
+        }
+
+        mouse.move(ev);
+      });
+
       $daddy.addClass(options.containerClass);
 
       if (!$daddy.hasClass('dad-active') && active === true) {
@@ -71,7 +85,7 @@
       };
 
       _this.addDropzone = function (selector, func) {
-        $(selector).on('mouseenter touchenter', function () {
+        $(selector).on('mouseenter dadtouchenter', function () {
           if (mouse.target !== false) {
             mouse.placeholder.css({ display: 'none' });
             mouse.target.css({ display: 'none' });
@@ -162,13 +176,14 @@
           }
 
           var appear = mouse.target;
-          var desapear = mouse.clone;
+          var desappear = mouse.clone;
           var holder = mouse.placeholder;
           var bLeft = 0;
           var bTop = 0;
 
-          //Math.floor(parseFloat(daddy.css('border-left-width')));
-          //Math.floor(parseFloat(daddy.css('border-top-width')));
+          // Maybe we will use this in the future
+          //Math.floor(parseFloat($daddy.css('border-left-width')));
+          //Math.floor(parseFloat($daddy.css('border-top-width')));
           if ($.contains($daddy[0], mouse.target[0])) {
             mouse.clone.animate({
               top: mouse.target.offset().top - $daddy.offset().top - bTop,
@@ -177,11 +192,11 @@
               appear.css({
                 visibility: 'visible',
               }).removeClass('active');
-              desapear.remove();
+              desappear.remove();
             });
           } else {
             mouse.clone.fadeOut(300, function () {
-              desapear.remove();
+              desappear.remove();
             });
           }
 
@@ -200,6 +215,7 @@
         if (mouse.target !== false && mouse.clone !== false) {
           var $origin = $('<span style="display:none"></span>');
           var $newplace = $('<span style="display:none"></span>');
+
           if (obj.prevAll().hasClass('active')) {
             obj.after($newplace);
           } else {
@@ -226,7 +242,12 @@
       var jq = (options.draggable !== false) ? options.draggable : jQclass;
       $daddy.find(jq).addClass(dragClass);
       $daddy.on('mousedown touchstart', jq, function (e) {
-        if (mouse.target === false && e.which == 1 && active === true) {
+        // For touchstart we must update "mouse" position
+        if (e.type == 'touchstart') {
+          mouse.updatePosition(e.originalEvent.touches[0]);
+        }
+
+        if (mouse.target == false && active == true && (e.which == 1 || e.type == 'touchstart')) {
           var $self = $(this);
 
           // GET TARGET
@@ -277,11 +298,11 @@
         }
       });
 
-      $daddy.on('mouseenter touchenter', jQclass, function () {
+      $daddy.on('mouseenter dadtouchenter', jQclass, function () {
         dadUpdate($(this));
       });
     });
 
     return this;
   };
-}(jQuery));
+})(jQuery);

@@ -224,33 +224,36 @@
 <script src="../source/jquery.dad.js"></script>
 <script src="jquery.nicescroll.min.js"></script>
 <script>
-    $(function(){
-        $('html').niceScroll({cursorcolor:"#639BF6",cursorwidth :10, cursorborder: 'none'});
-        //dad simple demo
-        $('.dad').dad();
-        //dad dropzone
-        var d=$('.dad2').dad();
-        d.addDropzone('.dropzone',function(e){
-            e.remove();
-        });
-        //dad activate and deactivate
-        $('.act').on('click',function(){
-            $('.btndemo').not(this).removeClass('active');
-            $(this).addClass('active');
-            d.css('opacity',1);
-            d.activate();
-        });
-        $('.deact').on('click',function(){
-            $('.btndemo').not(this).removeClass('active');
-            $(this).addClass('active');
-            d.css('opacity',0.5);
-            d.deactivate();
-        });
+$(function () {
+  // $('html').niceScroll({ cursorcolor: '#639BF6', cursorwidth: 10, cursorborder: 'none' });
 
+  //dad simple demo
+  $('.dad').dad();
 
-        $(".dad-draggable").dad({draggable:'.draggable'})
+  //dad dropzone
+  var d = $('.dad2').dad();
+  d.addDropzone('.dropzone', function (e) {
+    e.remove();
+  });
 
-    })
+  //dad activate and deactivate
+  $('.act').on('click', function () {
+    $('.btndemo').not(this).removeClass('active');
+    $(this).addClass('active');
+    d.css('opacity', 1);
+    d.activate();
+  });
+
+  $('.deact').on('click', function () {
+    $('.btndemo').not(this).removeClass('active');
+    $(this).addClass('active');
+    d.css('opacity', 0.5);
+    d.deactivate();
+  });
+
+  $('.dad-draggable').dad({ draggable: '.draggable' });
+
+});
 </script>
 </body>
 </html>

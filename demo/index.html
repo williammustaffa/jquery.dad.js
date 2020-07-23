@@ -1,257 +1,280 @@
 <!DOCTYPE html>
 <html>
-<head lang="pt">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DAD  | Drag and Drop Plugin </title>
-    <meta name="keywords" content="dad, dag and drop, dag, drop, plugin jquery, plugin, jquery">
-    <meta name="description" content="A simple and awesome drag and drop plugin">
+  <head lang="pt">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DAD | Drag and Drop Plugin</title>
+    <meta
+      name="keywords"
+      content="dad, dag and drop, dag, drop, plugin jquery, plugin, jquery"
+    />
+    <meta
+      name="description"
+      content="A simple and awesome drag and drop plugin"
+    />
     <meta property="og:title" content="DAD - drag and drop plugin" />
-    <meta property="og:image" content="http://www.konsolestudio.com.br/dad/og.png" />
-    <meta property="og:description" content="A simple and awesome drag and drop plugin" />
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="font/stylesheet.css">
-    <link rel="stylesheet" href="demo.css">
-    <link rel="stylesheet" href="../source/jquery.dad.css">
-</head>
-<body>
-<a href="https://github.com/williammustaffa/jquery.dad.js"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
-<div class="container">
-    <div class="margin">
+    <meta
+      property="og:image"
+      content="http://www.konsolestudio.com.br/dad/og.png"
+    />
+    <meta
+      property="og:description"
+      content="A simple and awesome drag and drop plugin"
+    />
+    <link rel="stylesheet" type="text/css" href="font/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="styles/demo.css" />
+    <link rel="stylesheet" type="text/css" href="styles/jquery.dad.css" />
+  </head>
+  <body>
+    <a href="https://github.com/williammustaffa/jquery.dad.js"
+      ><img
+        style="position: absolute; top: 0; left: 0; border: 0;"
+        src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67"
+        alt="Fork me on GitHub"
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"
+    /></a>
+    <div class="container">
+      <div class="margin">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 dad center-block logo" style="float: none">
-                <div class="col-xs-4"><img src="piece1.png"></div>
-                <div class="col-xs-4"><img src="piece2.png"></div>
-                <div class="col-xs-4"><img src="piece1.png"></div>
+          <div
+            class="col-lg-6 col-md-6 col-sm-12 col-xs-12 dad center-block logo"
+            style="float: none;"
+          >
+            <div class="col-xs-4">
+              <img class="clickable-item" src="assets/piece1.png" />
             </div>
-
+            <div class="col-xs-4"><img src="assets/piece2.png" /></div>
+            <div class="col-xs-4"><img src="assets/piece1.png" /></div>
+          </div>
         </div>
         <div class="row">
+          <div class="col-xs-12">
+            <div class="downloadContainer"></div>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="text-center" style="color: #639bf6; padding-bottom: 150px;">
+        <b>DAD:</b> A simple and awesome <b>Drag And Drop</b> plugin!
+      </h1>
+      <h2 class="text-center">Demos</h2>
+      <h3 class="text-center">Horizontal D&D</h3>
+      <div id="daddy" class="dad">
+        <div>
+          <div>1</div>
+        </div>
+        <div>
+          <div>2</div>
+        </div>
+        <div>
+          <div>3</div>
+        </div>
+        <div>
+          <div>4</div>
+        </div>
+        <div>
+          <div>5</div>
+        </div>
+      </div>
+      <h3 class="text-center">Vertical D&D</h3>
+      <div id="daddy2" class="dad">
+        <div>
+          <div>1</div>
+        </div>
+        <div>
+          <div>2</div>
+        </div>
+        <div>
+          <div>3</div>
+        </div>
+        <div>
+          <div>4</div>
+        </div>
+        <div>
+          <div>5</div>
+        </div>
+      </div>
+      <h3 class="text-center">Multiline D&D</h3>
+      <div id="daddy3" class="dad">
+        <div>
+          <div>1</div>
+        </div>
+        <div>
+          <div>2</div>
+        </div>
+        <div>
+          <div>3</div>
+        </div>
+        <div>
+          <div>4</div>
+        </div>
+        <div>
+          <div>5</div>
+        </div>
+        <div>
+          <div>6</div>
+        </div>
+        <div>
+          <div>7</div>
+        </div>
+        <div>
+          <div>8</div>
+        </div>
+      </div>
+      <h3 class="text-center">Bootstrap Grids D&D</h3>
+      <div class="row dad">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">1</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">2</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">3</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">4</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">5</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">6</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">7</div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">8</div>
+        </div>
+      </div>
+      <h3 class="text-center">Set draggable child area:</h3>
+      <div class="row dad-draggable">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            1
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            2
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            3
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            4
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            5
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            6
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            7
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+          <div class="item">
+            <span class="draggable">&bull; &bull; &bull;</span>
+            8
+          </div>
+        </div>
+      </div>
+      <h3 class="text-center">Droppable areas ( next version )</h3>
+      <div class="row">
+        <div class="cols-lg-6 col-sm-6 col-md- 12 col-xs-12">
+          <div class="row dad2">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="item">1</div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="item">2</div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="item">3</div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="item">4</div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-xs-12">
-                <div class="downloadContainer">
-                </div>
+              <a class="btndemo act">ACTIVE</a>
+              <a class="btndemo deact">DEACTIVE</a>
             </div>
-        </div>
-
-    </div>
-
-    <h1 class="text-center" style="color: #639BF6; padding-bottom: 150px"><b>DAD:</b> A simple and awesome <b>Drag And Drop</b> plugin!</h1>
-    <h2 class="text-center">Demos</h2>
-    <h3 class="text-center">Horizontal D&D</h3>
-    <div id="daddy" class="dad">
-        <div>
-            <div>1</div>
-        </div>
-        <div>
-            <div>2</div>
-        </div>
-        <div>
-            <div>3</div>
-        </div>
-        <div>
-            <div>4</div>
-        </div>
-        <div>
-            <div>5</div>
-        </div>
-    </div>
-    <h3 class="text-center">Vertical D&D</h3>
-    <div id="daddy2" class="dad">
-        <div>
-            <div>1</div>
-        </div>
-        <div>
-            <div>2</div>
-        </div>
-        <div>
-            <div>3</div>
-        </div>
-        <div>
-            <div>4</div>
-        </div>
-        <div>
-            <div>5</div>
-        </div>
-    </div>
-    <h3 class="text-center">Multiline D&D</h3>
-    <div id="daddy3" class="dad">
-        <div>
-            <div>1</div>
-        </div>
-        <div>
-            <div>2</div>
-        </div>
-        <div>
-            <div>3</div>
-        </div>
-        <div>
-            <div>4</div>
-        </div>
-        <div>
-            <div>5</div>
-        </div>
-        <div>
-            <div>6</div>
-        </div>
-        <div>
-            <div>7</div>
-        </div>
-        <div>
-            <div>8</div>
-        </div>
-    </div>
-    <h3 class="text-center">Bootstrap Grids D&D</h3>
-    <div class="row dad">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">1</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">2</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">3</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">4</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">5</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">6</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">7</div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">8</div>
-        </div>
-    </div>
-    <h3 class="text-center">Set draggable child area:</h3>
-    <div class="row dad-draggable">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                1
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                2
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                3
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                4
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                5
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                6
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                7
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-            <div class="item">
-                <span class="draggable">&bull; &bull; &bull;</span>
-                8
-            </div>
-        </div>
-    </div>
-    <h3 class="text-center">Droppable areas ( next version )</h3>
-    <div class="row">
-        <div class="cols-lg-6 col-sm-6 col-md- 12 col-xs-12">
-            <div class="row dad2">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="item">1</div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="item">2</div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="item">3</div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="item">4</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <a class="btndemo act">ACTIVE</a>
-                    <a class="btndemo deact">DEACTIVE</a>
-                </div>
-            </div>
+          </div>
         </div>
         <div class="cols-lg-6 col-sm-6 col-md- 12 col-xs-12">
-            <div class="row ">
-                <div class="col-xs-12 ">
-                    <div class="dropzone">
-                    </div>
-                </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="dropzone"></div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-<footer>
-<img class="center-block" src="logo.png">
-    <span>Williammustaffa<br>2015 &copy; jquery.dad.js</span>
-</footer>
-<script src="jquery.min.js"></script>
-<script src="../source/jquery.dad.js"></script>
-<script>
-$(function () {
+    <footer>
+      <a href="https://konsole.studio"
+        ><img class="center-block" src="assets/logo.png"
+      /></a>
+    </footer>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.dad.js"></script>
+    <script>
+      $(function () {
+        $(".clickable-item").on("click", function () {
+          alert("ASDASDASD");
+        });
+        //dad simple demo
+        $(".dad").dad();
 
-  //dad simple demo
-  $('.dad').dad();
+        //dad dropzone
+        var d = $(".dad2").dad();
+        d.addDropzone(".dropzone", function (e) {
+          e.remove();
+        });
 
-  //dad dropzone
-  var d = $('.dad2').dad();
-  d.addDropzone('.dropzone', function (e) {
-    e.remove();
-  });
+        //dad activate and deactivate
+        $(".act").on("click", function () {
+          $(".btndemo").not(this).removeClass("active");
+          $(this).addClass("active");
+          d.css("opacity", 1);
+          d.activate();
+        });
 
-  //dad activate and deactivate
-  $('.act').on('click', function () {
-    $('.btndemo').not(this).removeClass('active');
-    $(this).addClass('active');
-    d.css('opacity', 1);
-    d.activate();
-  });
+        $(".deact").on("click", function () {
+          $(".btndemo").not(this).removeClass("active");
+          $(this).addClass("active");
+          d.css("opacity", 0.5);
+          d.deactivate();
+        });
 
-  $('.deact').on('click', function () {
-    $('.btndemo').not(this).removeClass('active');
-    $(this).addClass('active');
-    d.css('opacity', 0.5);
-    d.deactivate();
-  });
-
-  $('.dad-draggable').dad({ draggable: '.draggable' });
-
-});
-</script>
-</body>
+        $(".dad-draggable").dad({ draggable: ".draggable" });
+      });
+    </script>
+  </body>
 </html>

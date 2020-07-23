@@ -1,15 +1,10 @@
-var express = require('express');
-var path = require('path');
-var app = express();
+var liveServer = require("live-server");
+ 
+var params = {
+  port: 3000,
+  root: "./demo",
+  open: true,
+  file: "index.html",
+};
 
-// Define the port to run on
-app.set('port', 3000);
-
-app.use('/source', express.static(path.join(__dirname, 'source')));
-app.use(express.static(path.join(__dirname, 'demo')));
-
-// Listen for requests
-var server = app.listen(app.get('port'), function () {
-  var port = server.address().port;
-  console.log('Magic happens on port ' + port);
-});
+liveServer.start(params);

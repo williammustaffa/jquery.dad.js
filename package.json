@@ -4,7 +4,8 @@
   "description": "drag and drop plugin",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./scripts/devserver.js",
+    "build": "node ./scripts/build.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/williammustaffa/jquery.dad.js#readme",
   "devDependencies": {
-    "live-server": "^1.2.1",
-    "rollup": "^2.22.2"
+    "@node-minify/core": "^6.0.0",
+    "@node-minify/uglify-js": "^6.0.0",
+    "live-server": "^1.2.1"
   }
 }

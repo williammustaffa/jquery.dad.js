@@ -2,37 +2,45 @@
   padding: 0;
   margin: 0;
 }
+
 body {
   font-family: "bebas_neueregular", sans-serif;
   height: 800px;
   background: black;
 }
+
 h2 {
   font-size: 30px;
   padding: 120px 0 20px 0;
   color: #639bf6;
 }
+
 h3 {
   padding: 60px 0 20px 0;
   font-weight: bold;
   color: #639bf6;
 }
+
 .margin {
   padding: 100px 0;
 }
+
 .logo {
   background: none !important;
 }
+
 .logo img {
   max-width: 100%;
   display: block;
   padding: 0 15px;
 }
+
 #daddy::after {
   content: "";
   clear: both !important;
   display: block;
 }
+
 #daddy > div {
   box-sizing: border-box;
   width: 20%;
@@ -41,6 +49,7 @@ h3 {
   display: block;
   position: relative;
 }
+
 #daddy > div > div {
   display: block;
   height: 120px;
@@ -52,11 +61,13 @@ h3 {
   color: white;
   font-family: "Arial", sans-serif;
 }
+
 #daddy2::after {
   content: "";
   clear: both !important;
   display: block;
 }
+
 #daddy2 > div {
   box-sizing: border-box;
   width: 100%;
@@ -65,6 +76,7 @@ h3 {
   display: block;
   position: relative;
 }
+
 #daddy2 > div > div {
   display: block;
   height: 50px;
@@ -76,11 +88,13 @@ h3 {
   color: white;
   font-family: "Arial", sans-serif;
 }
+
 #daddy3::after {
   content: "";
   clear: both !important;
   display: block;
 }
+
 #daddy3 > div {
   box-sizing: border-box;
   width: 25%;
@@ -89,6 +103,7 @@ h3 {
   display: block;
   position: relative;
 }
+
 #daddy3 > div > div,
 .item {
   display: block;
@@ -101,26 +116,31 @@ h3 {
   color: white;
   font-family: "Arial", sans-serif;
 }
+
 .item {
   margin: 15px;
   display: block;
   background: #639bf6;
   position: relative;
 }
+
 .comments {
   background: black;
   margin: 50px 0 0 0;
   padding: 30px;
 }
+
 footer {
   display: block;
   margin-top: 100px;
   padding: 20px 0;
   background: #000000;
 }
+
 footer img {
   width: 150px;
 }
+
 footer span {
   color: #639bf6;
   font-size: 21px;
@@ -128,6 +148,7 @@ footer span {
   text-align: center;
   display: block;
 }
+
 .draggable {
   border-bottom: 4px solid black;
   font-family: "bebas_neueregular", sans-serif;
@@ -143,6 +164,7 @@ footer span {
   left: 0;
   background: #639bf6;
 }
+
 .downloadContainer {
   max-width: 100%;
   display: block;
@@ -150,6 +172,7 @@ footer span {
   width: 716px;
   margin: 150px auto 0 auto;
 }
+
 .button {
   max-width: 100%;
   border: 4px solid #639bf6;
@@ -164,6 +187,7 @@ footer span {
   padding: 10px 20px;
   background: #639bf6;
 }
+
 .button:hover {
   background: transparent;
   cursor: pointer;
@@ -171,9 +195,11 @@ footer span {
   text-decoration: none;
   color: #639bf6;
 }
+
 .desc {
   font-size: 21px;
 }
+
 .dropzone::before {
   -webkit-transition: 0.5s ease-in-out;
   -moz-transition: 0.5s ease-in-out;
@@ -187,6 +213,7 @@ footer span {
   display: block;
   font-size: 26px;
 }
+
 .dropzone {
   border: 4px dashed #639bf6;
   color: #639bf6;
@@ -198,6 +225,7 @@ footer span {
   transition: 0.5s ease-in-out;
   opacity: 0.3;
 }
+
 .btndemo {
   width: 100px;
   text-align: center;
@@ -212,6 +240,7 @@ footer span {
   color: white;
   font-size: 16px;
 }
+
 .btndemo:hover,
 .btndemo.active {
   text-decoration: none;
@@ -219,6 +248,7 @@ footer span {
   background: black;
   border: 4px solid #639bf6;
 }
+
 .dropzone.active {
   opacity: 1;
 }

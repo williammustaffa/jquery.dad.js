@@ -23,9 +23,19 @@
    * @param {Event}
    */
   DadMouse.prototype.update = function (e) {
-    // Update mouse coordinates
-    this.positionX = e.pageX;
-    this.positionY = e.pageY;
+    // Check if it is touch
+    if (supportsTouch && e.type == "touchmove") {
+      var targetEvent = e.originalEvent.touches[0];
+      var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
+      $(mouseTarget).trigger("touchenter"); // TODO: check if this is necessary
+
+      // update mouse coordinates from touch
+      this.positionX = targetEvent.pageX;
+      this.positionY = targetEvent.pageY;
+    } else {
+      this.positionX = e.pageX;
+      this.positionY = e.pageY;
+    }
   };
 
   var mouse = new DadMouse();
@@ -47,87 +57,80 @@
     // General variables
     this.mouse = new DadMouse();
     this.active = true;
+    this.dragging = false;
 
     // Add event listeners, data attributes and etc
     this.setup();
   }
 
   Dad.prototype.setup = function () {
+    var self = this;
+
     // Add dad-id attribute to children
     this.$children.each(function (index) {
       var $this = $(this);
       $this.data("dad-id", index);
       $this.data("dad-position", index);
+
+      $this.find("img").attr("ondragstart", "return false");
     });
+
     // Add element event listeners
-    this.$children.on("mousedown touchstart", this.start.bind(this));
+    this.$children.on("mousedown touchstart", function (e) {
+      if (self.dragging) return;
+      self.start(e, this);
+    });
+
     // Add window event listeners
-    $(window).on("mousemove touchmove", this.update.bind(this));
-    $(window).on("mouseup touchend", this.end.bind(this));
+    $("body").on("mousemove touchmove", this.update.bind(this));
+    $("body").on("mouseup touchend", this.end.bind(this));
   };
 
   /**
    * First step, occurs on mousedown
    * @param {Event}
    */
-  Dad.prototype.start = function (e) {
-    // TODO: draggable
-    // If already has a target, do nothing
-    if (this.$target) return;
-
+  Dad.prototype.start = function (e, element) {
     // Update "mouse" position for touch devices
     if (e.type == "touchstart") {
       this.mouse.updatePosition(e.originalEvent.touches[0]);
+    } else {
+      this.mouse.update(e);
     }
 
-    this.$target = $(e.target);
-
     // Add clone
-    this.$clone = this.$target.clone();
-    this.$container.append(this.$clone);
+    var $target = $(element);
+    var $clone = $target
+      .clone()
+      .css("position", "absolute")
+      .css("height", $target.outerHeight())
+      .css("width", $target.outerWidth());
 
     // Add placeholder
-    this.$placeholder = $("<div />");
-    this.$placeholder.css({
-      top: this.$target.offset().top - this.$container.offset().top,
-      left: this.$target.offset().left - this.$container.offset().left,
-      width: this.$target.outerWidth() - 10,
-      height: this.$target.outerHeight() - 10,
-      lineHeight: this.$target.height() - 18 + "px",
-      textAlign: "center",
-    });
+    var $placeholder = $("<div />")
+      .css("top", $target.offset().top - this.$container.offset().top)
+      .css("left", $target.offset().left - this.$container.offset().left)
+      .css("width", $target.outerWidth())
+      .css("height", $target.outerHeight());
 
-    this.$container.append(mouse.placeholder);
+    // Set mouse offset values
+    this.mouse.offsetX = this.mouse.positionX - $target.offset().left;
+    this.mouse.offsetY = this.mouse.positionY - $target.offset().top;
 
-    // Update clone offset
-    var borderLeft = Math.floor(
-      parseFloat(this.$container.css("border-left-width"))
-    );
-    var borderTop = Math.floor(
-      parseFloat(this.$container.css("border-top-width"))
-    );
+    $target.css("visibility", "hidden");
 
-    this.mouse.offsetX =
-      this.mouse.positionX +
-      this.$target.offset().left +
-      this.$container.offset().left +
-      borderLeft;
+    // Setting variables
+    this.dragging = true;
+    this.$target = $target;
+    this.$clone = $clone;
+    this.$placeholder = $placeholder;
 
-    this.mouse.offsetY =
-      this.mouse.positionY -
-      this.$target.offset().top +
-      this.$container.offset().top +
-      borderTop;
-
-    // Add styles
-    this.$target.css("visibility", "hidden"); //.add-class active
-    this.$clone.css("position", "absolute");
+    // Add elements to container
+    this.$container.append($clone).append($placeholder);
 
     // Set clone position
     this.updateClonePosition();
 
-    // Disable item selection
-    // TODO: add inline css
     $("html, body").addClass("dad-noSelect");
   };
 
@@ -135,11 +138,12 @@
    * Middle step, occurs on mousemove
    */
   Dad.prototype.update = function (e) {
+    if (!this.dragging) return;
+
     // Check if it is touch
     if (supportsTouch && e.type == "touchmove") {
       var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
       $(mouseTarget).trigger("touchenter"); // TODO: check if this is necessary
-      // Update mouse using touch event
       this.mouse.update(e.originalEvent.touches[0]);
     } else {
       this.mouse.update(e);
@@ -153,56 +157,46 @@
    * Final step, ocurrs on mouseup
    */
   Dad.prototype.end = function () {
-    if (!this.$target) return;
+    if (!this.dragging) return;
 
+    var $container = this.$container;
     var $target = this.$target;
     var $clone = this.$clone;
-    var $container = this.$container;
+    var $placeholder = this.$placeholder;
 
-    // Maybe we will use this in the future
-    //Math.floor(parseFloat($daddy.css('border-left-width')));
-    //Math.floor(parseFloat($daddy.css('border-top-width')));
-    if ($.contains($container[0], $target[0])) {
-      // Do transition from clone to target
-      $clone.animate(
-        {
-          top: $target.offset().top - $container.offset().top,
-          left: $target.offset().left - $container.offset().left,
-        },
-        300,
-        this.reset.bind(this)
-      );
-    } else {
-      $clone.fadeOut(300, this.reset.bind(this));
-    }
+    const targetX = $target.offset().left - $container.offset().left;
+    const targetY = $target.offset().top - $container.offset().top;
 
+    // Do transition from clone to target
+    $clone.animate({ top: targetY, left: targetX }, 1000, function () {
+      $clone.remove();
+      $placeholder.remove();
+      $target.css("visibility", "visible");
+    });
+
+    // Update data-dad-id
     // updatePosition($daddy);
+
+    // Reset variables
+    this.dragging = false;
+    this.$target = null;
+    this.$clone = null;
+    this.$placeholder = null;
 
     $("html, body").removeClass("dad-noSelect");
   };
 
-  Dad.prototype.reset = function () {
-    // Reset target visibility
-    if (this.$target) this.$target.css("visibility", "visible");
-    // Remove elements if existent
-    if (this.$clone) this.$clone.remove();
-    if (this.$placeholder) this.$placeholder.remove();
-
-    // Reset variables
-    this.$target = null;
-    this.$clone = null;
-    this.$placeholder = null;
-  };
-
   Dad.prototype.updateClonePosition = function () {
-    if (!this.$clone) return;
+    if (!this.dragging) return;
 
-    var mouse = this.mouse;
+    // Get positions
+    var containerX = this.$container.offset().top;
+    var containerY = this.$container.offset().left;
+    var targetX = this.mouse.positionY - containerX - this.mouse.offsetY;
+    var targetY = this.mouse.positionX - containerY - this.mouse.offsetX;
 
-    this.$clone.css({
-      top: mouse.positionY - mouse.offsetY,
-      left: mouse.positionX - mouse.offsetX,
-    });
+    // Update clone positi
+    this.$clone.css({ top: targetX, left: targetY });
   };
 
   /**
@@ -212,8 +206,6 @@
   Dad.prototype.updatePlaceholderPosition = function () {
     if (!this.$target) return;
 
-    var $container = this.$container;
-    var $target = this.target;
     var $origin = $('<span style="display:none"></span>');
     var $newplace = $('<span style="display:none"></span>');
 
@@ -228,10 +220,10 @@
     $newplace.before(mouse.target);
 
     mouse.placeholder.css({
-      top: $target.offset().top - $container.offset().top,
-      left: $target.offset().left - $container.offset().left,
-      width: $target.outerWidth() - 10,
-      height: $target.outerHeight() - 10,
+      top: this.$target.offset().top - $container.offset().top,
+      left: this.$target.offset().left - $container.offset().left,
+      width: this.$target.outerWidth() - 10,
+      height: this.$target.outerHeight() - 10,
     });
 
     $origin.remove();

@@ -112,6 +112,7 @@
   Dad.prototype.prepare = function (e, element) {
     this.holding = true;
     this.$target = $(element);
+    this.mouse.update(e);
   };
 
   /**
@@ -167,6 +168,8 @@
    * Middle step, occurs on mousemove
    */
   Dad.prototype.update = function (e) {
+    this.mouse.update(e);
+
     // If user is holding but not dragging
     // Call start method
     if (this.holding && !this.dragging) {
@@ -174,7 +177,6 @@
     }
 
     if (this.dragging) {
-      this.mouse.update(e);
       this.updateClonePosition();
     }
   };

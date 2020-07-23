@@ -168,7 +168,7 @@
     const targetY = $target.offset().top - $container.offset().top;
 
     // Do transition from clone to target
-    $clone.animate({ top: targetY, left: targetX }, 1000, function () {
+    $clone.animate({ top: targetY, left: targetX }, 200, function () {
       $clone.remove();
       $placeholder.remove();
       $target.css("visibility", "visible");

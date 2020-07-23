@@ -26,7 +26,10 @@
     // Check if it is touch
     if (supportsTouch && e.type == "touchmove") {
       var targetEvent = e.originalEvent.touches[0];
-      var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
+      var mouseTarget = document.elementFromPoint(
+        targetEvent.clientX,
+        targetEvent.clientY
+      );
       $(mouseTarget).trigger("touchenter"); // TODO: check if this is necessary
 
       // update mouse coordinates from touch
@@ -116,13 +119,6 @@
    * @param {Event}
    */
   Dad.prototype.start = function (e) {
-    // Update "mouse" position for touch devices
-    if (e.type == "touchstart") {
-      this.mouse.updatePosition(e.originalEvent.touches[0]);
-    } else {
-      this.mouse.update(e);
-    }
-
     // Set target and get its metrics
     var $target = this.$target;
     var targetTop = $target.offset().top - this.$container.offset().top;
@@ -177,19 +173,10 @@
       this.start(e);
     }
 
-    if (!this.dragging) return;
-
-    // Check if it is touch
-    if (supportsTouch && e.type == "touchmove") {
-      var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
-      $(mouseTarget).trigger("touchenter"); // TODO: check if this is necessary
-      this.mouse.update(e.originalEvent.touches[0]);
-    } else {
+    if (this.dragging) {
       this.mouse.update(e);
+      this.updateClonePosition();
     }
-
-    // Ipdate clone position
-    this.updateClonePosition();
   };
 
   /**

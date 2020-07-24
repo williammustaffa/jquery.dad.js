@@ -65,11 +65,7 @@ h3 {
   color: #639bf6;
 }
 
-/* Dad should ignore margin */
-.dad-demo > div {
-  margin-bottom: 15px;
-}
-
+/* dad common demo styles */
 .dad-demo .item {
   position: relative;
   font-family: "Arial", sans-serif;
@@ -84,6 +80,18 @@ h3 {
   box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
+/* non bootstrap style*/
+.dad-demo:not(.bootstrap) > div {
+  padding: 10px;
+  width: 100%;
+}
+
+/* bootstrap style */
+.dad-demo.bootstrap [class*='col-'] {
+  margin-bottom: 20px;
+}
+
+/* dad draggable demo */
 .dad-demo span:not(.draggable) {
   display: inline-block;
   position: absolute;
@@ -101,30 +109,32 @@ h3 {
   margin-bottom: 5px;
 }
 
+/* dad horizontal demo */
 #dad-horizontal {
   display: flex;
   flex-direction: row;
 }
 
-#dad-vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-#dad-multiline {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
 
 #dad-horizontal > div {
   flex-direction: row;
 }
 
-#dad-horizontal > div,
-#dad-vertical > div,
-#dad-multiline > div {
-  width: 100%;
+/* dad vertical demo */
+#dad-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+#dad-vertical .item {
+  height: 80px
+}
+
+/* demo multiline */
+#dad-multiline {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #dad-multiline > div {
@@ -132,12 +142,7 @@ h3 {
   flex-wrap: wrap;
 }
 
-#dad-draggable,
-#dad-droppable,
-#dad-bootstrap {
-  display: block;
-}
-
+/* footer section */
 footer {
   background: #18182b;
   text-align: center;

@@ -47,7 +47,7 @@
    * @param {options} options
    */
   function Dad(element, options) {
-    this.options = options;
+    this.options = this.parseOptions(options);
 
     // jQuery elements
     this.$container = $(element);
@@ -65,6 +65,56 @@
     this.setup();
   }
 
+  /**
+   * Static attribute that stores default dad options
+   */
+  Dad.defaultOptions = {
+    placeholder: {
+      template: "<div style='border: 4px dashed #639bf6'></div>",
+      target: false,
+    },
+    active: true,
+    draggable: false,
+    transition: 200,
+    debug: true,
+  };
+
+  /**
+   * Merge provided options with the defaults
+   */
+  Dad.prototype.parseOptions = function (options) {
+    // Make defaults immutable
+    var parsedOptions = $.extend(true, {}, Dad.defaultOptions);
+
+    if (options) {
+      $.each(parsedOptions, function (key, value) {
+        var overrideValue = options[key];
+
+        if (overrideValue) {
+          // Valid for arrays as well
+          if (typeof overrideValue === "object") {
+            parsedOptions[key] = $.extend(parsedOptions[key], overrideValue);
+          } else {
+            parsedOptions[key] = overrideValue;
+          }
+        }
+      });
+    }
+
+    if (parsedOptions.debug) {
+      console.info(
+        "[jquery.dad.js] Created a new dad container with the following options:",
+        parsedOptions
+      );
+    }
+
+    return parsedOptions;
+  };
+
+  /**
+   * Add all required listeners and
+   * styles that prevents some issues when dragging
+   */
   Dad.prototype.setup = function () {
     var self = this;
 
@@ -95,7 +145,7 @@
     // Add listener for placeholder
     this.$children.on("mouseenter touchenter", function (e) {
       if (self.dragging) {
-        self.updatePlaceholderPosition(e, this);
+        self.updatePlaceholder(e, this);
       }
     });
 
@@ -111,7 +161,7 @@
   Dad.prototype.prepare = function (e, element) {
     var draggable = this.options.draggable;
     var shouldStartDragging = draggable ? $(draggable + ":hover").length : true;
-
+    console.log("PRAIA should", draggable, shouldStartDragging);
     if (shouldStartDragging) {
       this.holding = true;
       this.$target = $(element);
@@ -126,35 +176,31 @@
   Dad.prototype.start = function (e) {
     // Set target and get its metrics
     var $target = this.$target;
-    var targetTop = $target.offset().top - this.$container.offset().top;
-    var targetLeft = $target.offset().left - this.$container.offset().left;
-    var targetHeight = $target.outerHeight();
-    var targetWidth = $target.outerWidth();
 
     // Add clone
     var $clone = $target.clone().css({
       position: "absolute",
       zIndex: 9999,
       pointerEvents: "none",
-      height: targetHeight,
-      width: targetWidth,
+      height: $target.outerHeight(),
+      width: $target.outerWidth(),
     });
 
     // Add placeholder
-    var $placeholder = $(this.options.placeholder).css({
+    var $placeholder = $(this.options.placeholder.template).css({
       position: "absolute",
-      top: targetTop,
-      left: targetLeft,
-      width: targetWidth,
-      height: targetHeight,
+      zIndex: 9998,
+      pointerEvents: "none",
+      margin: 0,
+      height: $target.outerHeight(),
+      width: $target.outerWidth(),
     });
 
     // Set mouse offset values
     this.mouse.offsetX = this.mouse.positionX - $target.offset().left;
     this.mouse.offsetY = this.mouse.positionY - $target.offset().top;
 
-    $target.data("dad-active", true);
-    $target.css("visibility", "hidden");
+    $target.css("opacity", "0.2");
 
     // Setting variables
     this.dragging = true;
@@ -165,8 +211,9 @@
     // Add elements to container
     this.$container.append($placeholder).append($clone);
 
-    // Set clone position
+    // Set clone and placeholder position
     this.updateClonePosition();
+    this.updatePlaceholderPosition();
   };
 
   /**
@@ -210,7 +257,7 @@
           $clone.remove();
           $placeholder.remove();
           $target.removeData("dad-active");
-          $target.css("visibility", "visible");
+          $target.css("opacity", "");
         }
       );
 
@@ -237,7 +284,7 @@
    * Dad update placeholder position by
    * checking the current placeholder position
    */
-  Dad.prototype.updatePlaceholderPosition = function (e, element) {
+  Dad.prototype.updatePlaceholder = function (e, element) {
     var $element = $(element);
 
     if ($element.index() > this.$target.index()) {
@@ -246,7 +293,16 @@
       $element.before(this.$target);
     }
 
-    var $target = this.$target;
+    this.updatePlaceholderPosition();
+  };
+
+  Dad.prototype.updatePlaceholderPosition = function () {
+    var placeholderOptions = this.options.placeholder;
+
+    var $target = placeholderOptions.target
+      ? this.$target.find(placeholderOptions.target)
+      : this.$target;
+
     var targetTop = $target.offset().top - this.$container.offset().top;
     var targetLeft = $target.offset().left - this.$container.offset().left;
     var targetHeight = $target.outerHeight();
@@ -261,7 +317,6 @@
   };
 
   Dad.prototype.activate = function () {
-    // $daddy.addClass("dad-active"); do we really need to toggle this class?
     this.active = false;
   };
 
@@ -270,18 +325,8 @@
   };
 
   $.fn.dad = function (options) {
-    var mergedOptions = $.extend(
-      {
-        placeholder: "<div style='border: 4px dashed #639bf6'></div>",
-        active: true,
-        draggable: false,
-        transition: 200,
-      },
-      options
-    );
-
     $(this).each(function () {
-      this.dad = new Dad(this, mergedOptions);
+      this.dad = new Dad(this, options);
     });
 
     return {

@@ -135,7 +135,7 @@
         </div>
       </div>
 
-      <h3 class="text-center">Multiline</h3>
+      <h3 class="text-center">Multiline & dynamic children</h3>
       <div id="dad-multiline" class="dad-demo dad-example">
         <div>
           <div class="item"><span>1</span></div>
@@ -162,7 +162,12 @@
           <div class="item"><span>8</span></div>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="button add-child">ADD CHILD</div>
+          <div class="button remove-child">REMOVE CHILD</div>
+        </div>
+      </div>
       <h3 class="text-center">
         Bootstrap Grids (This can get messy as you change it)
       </h3>
@@ -303,6 +308,20 @@
         // Common events
         $(".dad-example").dad({
           placeholder: { target: ".item" }
+        });
+
+        // Multiline/dynamic
+        $(".add-child").on("click", function () {
+          // Create new element
+          var newElement = document.createElement('div');
+          newElement.innerHTML = "<div class=\"item\"><span>Hi dad!</span></div>";
+
+          // Add element
+          $("#dad-multiline").append(newElement)
+        });
+
+        $(".remove-child").on("click", function () {
+          $("#dad-multiline > div:last").remove()
         });
 
         // draggable

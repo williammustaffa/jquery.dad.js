@@ -65,6 +65,20 @@ h3 {
   color: #639bf6;
 }
 
+.button {
+  border: 4px solid #639bf6;
+  padding: 10px;
+  display: inline-block;
+  color: #639bf6;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button.active {
+  background: #639bf6;
+  color: #2c2c54;
+}
+
 /* dad common demo styles */
 .dad-demo .item {
   position: relative;
@@ -87,7 +101,7 @@ h3 {
 }
 
 /* bootstrap style */
-.dad-demo.bootstrap [class*='col-'] {
+.dad-demo.bootstrap [class*="col-"] {
   margin-bottom: 20px;
 }
 
@@ -115,7 +129,6 @@ h3 {
   flex-direction: row;
 }
 
-
 #dad-horizontal > div {
   flex-direction: row;
 }
@@ -127,7 +140,7 @@ h3 {
 }
 
 #dad-vertical .item {
-  height: 80px
+  height: 80px;
 }
 
 /* demo multiline */
@@ -140,6 +153,15 @@ h3 {
 #dad-multiline > div {
   width: 25%;
   flex-wrap: wrap;
+}
+
+/* demo togglable */
+#dad-togglable {
+  transition: all 0.5s;
+}
+
+#dad-togglable[data-dad-active="false"] {
+  opacity: 0.5;
 }
 
 /* footer section */

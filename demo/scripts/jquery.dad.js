@@ -76,7 +76,7 @@
     active: true,
     draggable: false,
     transition: 200,
-    debug: true,
+    debug: false,
   };
 
   /**
@@ -129,12 +129,15 @@
       "user-select": "none",
     });
 
+    // update
+    this.setActive(this.active);
+
     // Prevent dragging images on IE
     this.$container.find("img").attr("ondragstart", "return false");
 
     // Add dad-id attribute to children
     this.$children.each(function (index) {
-      $(this).data("dad-id", index);
+      $(this).attr("data-dad-id", index);
     });
 
     // Add element event listeners
@@ -160,8 +163,9 @@
 
   Dad.prototype.prepare = function (e, element) {
     var draggable = this.options.draggable;
-    var shouldStartDragging = draggable ? $(draggable + ":hover").length : true;
-    console.log("PRAIA should", draggable, shouldStartDragging);
+    var shouldStartDragging =
+      this.active && (draggable ? $(draggable + ":hover").length : true);
+
     if (shouldStartDragging) {
       this.holding = true;
       this.$target = $(element);
@@ -256,7 +260,7 @@
         function () {
           $clone.remove();
           $placeholder.remove();
-          $target.removeData("dad-active");
+          $target.removeAttr("data-dad-active");
           $target.css("opacity", "");
         }
       );
@@ -296,6 +300,9 @@
     this.updatePlaceholderPosition();
   };
 
+  /**
+   * Update placeholder position based on its options
+   */
   Dad.prototype.updatePlaceholderPosition = function () {
     var placeholderOptions = this.options.placeholder;
 
@@ -316,21 +323,49 @@
     });
   };
 
-  Dad.prototype.activate = function () {
-    this.active = false;
-  };
-
-  Dad.prototype.deactivate = function () {
-    this.active = false;
+  /**
+   * Update container active status which later
+   * will prevent the dragging to start on the prepare function
+   */
+  Dad.prototype.setActive = function (isActive) {
+    this.active = isActive;
+    this.$container.attr("data-dad-active", isActive);
   };
 
   $.fn.dad = function (options) {
+    var $this = $(this);
+
     $(this).each(function () {
       this.dad = new Dad(this, options);
     });
 
+    /**
+     * Activate dad instances
+     */
+    function activate() {
+      $this.each(function () {
+        this.dad.setActive(true);
+      });
+    }
+
+    /**
+     * Deactivate dad instances
+     */
+    function deactivate() {
+      $this.each(function () {
+        this.dad.setActive(false);
+      });
+    }
+
+    /**
+     * Deactivate dad instances
+     */
+    function addDropzone() {}
+
     return {
-      addDropzone: function () {},
+      addDropzone: addDropzone,
+      activate: activate,
+      deactivate: deactivate,
     };
   };
 })(jQuery);

@@ -98,7 +98,7 @@
     </div>
     <div class="container">
       <h3 class="text-center">Horizontal D&D</h3>
-      <div id="dad-horizontal" class="dad-demo">
+      <div id="dad-horizontal" class="dad-demo dad-example">
         <div>
           <div class="item"><span>1</span></div>
         </div>
@@ -117,7 +117,7 @@
       </div>
 
       <h3 class="text-center">Vertical D&D</h3>
-      <div id="dad-vertical" class="dad-demo">
+      <div id="dad-vertical" class="dad-demo dad-example">
         <div>
           <div class="item"><span>1</span></div>
         </div>
@@ -136,7 +136,7 @@
       </div>
 
       <h3 class="text-center">Multiline</h3>
-      <div id="dad-multiline" class="dad-demo">
+      <div id="dad-multiline" class="dad-demo dad-example">
         <div>
           <div class="item"><span>1</span></div>
         </div>
@@ -166,7 +166,7 @@
       <h3 class="text-center">
         Bootstrap Grids (This can get messy as you change it)
       </h3>
-      <div id="dad-bootstrap" class="row dad-demo bootstrap">
+      <div id="dad-bootstrap" class="row dad-demo dad-example bootstrap">
         <div class="col-xs-6">
           <div class="item"><span>1</span></div>
         </div>
@@ -258,31 +258,28 @@
         </div>
       </div>
 
-      <h3 class="text-center">Droppable areas ( next version )</h3>
-      <div id="dad-droppable" class="row dad-demo bootstrap">
-        <div class="cols-lg-6 col-sm-6 col-md- 12 col-xs-12">
-          <div class="row dad2">
-            <div class="col-xs-6">
-              <div class="item">1</div>
-            </div>
-            <div class="col-xs-6">
-              <div class="item">2</div>
-            </div>
-            <div class="col-xs-6">
-              <div class="item">3</div>
-            </div>
-            <div class="col-xs-6">
-              <div class="item">4</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <a class="btndemo act">ACTIVATE</a>
-              <a class="btndemo deact">DEACTIVATE</a>
-            </div>
-          </div>
+      <h3 class="text-center">Activate and deactivate</h3>
+      <div id="dad-togglable" class="row dad-demo bootstrap">
+        <div class="col-xs-6">
+          <div class="item"><span>1</span></div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-xs-6">
+          <div class="item"><span>2</span></div>
+        </div>
+        <div class="col-xs-6">
+          <div class="item"><span>3</span></div>
+        </div>
+        <div class="col-xs-6">
+          <div class="item"><span>4</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="activate" class="button active">ACTIVATE</div>
+          <div id="deactivate" class="button">DEACTIVATE</div>
+        </div>
+      </div>
+        <div class="col-xs-12">
           <div class="row">
             <div class="col-xs-12">
               <div class="dropzone"></div>
@@ -301,34 +298,43 @@
     <script src="scripts/jquery.dad.js"></script>
     <script>
       $(function () {
-        $(".clickable-item").on("click", function () {
-          console.log("WSL clicked on element");
+        $("#dad-logo").dad();
+
+        // Common events
+        $(".dad-example").dad({
+          placeholder: { target: ".item" }
         });
-
-        // Dad enable each div
-        // You could call also .dad-demo once
-        var options = {
-          placeholder: { target: '.item' }
-        }
-
-        $("#dad-logo").dad(options);
-        $("#dad-horizontal").dad(options);
-        $("#dad-vertical").dad(options);
-        $("#dad-multiline").dad(options);
-        $("#dad-bootstrap").dad(options);
 
         // draggable
         $("#dad-draggable").dad({
           draggable: ".draggable",
           placeholder: { target: '.item-draggable' }
-         });
+        });
 
-        //dad dropzone
-        // var d = $(".dad2").dad();
-        // d.addDropzone(".dropzone", function (e) {
-        //   e.remove();
-        // });
+        // activate and deactivate
+        var togglable = $("#dad-togglable").dad({
+          active: false,
+          placeholder: { target: ".item" }
+        })
 
+
+        // activating
+        $("#activate").on("click", function () {
+          togglable.activate();
+
+          // Handle button style
+          $(".button").not(this).removeClass("active");
+          $(this).addClass("active");
+        })
+
+        // deactivating
+        $("#deactivate").on("click", function () {
+          togglable.deactivate();
+
+          // Handle button style
+          $(".button").not(this).removeClass("active");
+          $(this).addClass("active");
+        })
         // //dad activate and deactivate
         // $(".act").on("click", function () {
         //   $(".btndemo").not(this).removeClass("active");

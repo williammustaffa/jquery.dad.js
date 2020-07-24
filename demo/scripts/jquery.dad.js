@@ -91,9 +91,7 @@
 
     // Add element event listeners
     this.$children.on("mousedown touchstart", function (e) {
-      if (!self.dragging) {
-        self.prepare(e, this);
-      }
+      self.prepare(e, this);
     });
 
     // Add listener for placeholder
@@ -106,13 +104,21 @@
     // Add window event listeners
     $("body").on("mousemove touchmove", this.update.bind(this));
     $("body").on("mouseup touchend", this.end.bind(this));
+
+    // Cancelling drag due to browser native actions
     $("body").on("mouseleave", this.end.bind(this));
+    $(window).on("blur", this.end.bind(this));
   };
 
   Dad.prototype.prepare = function (e, element) {
-    this.holding = true;
-    this.$target = $(element);
-    this.mouse.update(e);
+    var draggable = this.options.draggable;
+    var shouldStartDragging = draggable ? $(draggable + ":hover").length : true;
+
+    if (shouldStartDragging) {
+      this.holding = true;
+      this.$target = $(element);
+      this.mouse.update(e);
+    }
   };
 
   /**
@@ -130,6 +136,7 @@
     // Add clone
     var $clone = $target.clone().css({
       position: "absolute",
+      zIndex: 9999,
       pointerEvents: "none",
       height: targetHeight,
       width: targetWidth,
@@ -267,9 +274,10 @@
   $.fn.dad = function (options) {
     var options = $.extend(
       {
-        placeholder: "<div style='border: 1px dashed white'></div>",
-        transition: 200,
+        placeholder: "<div style='border: 4px dashed #706fd3'></div>",
         active: true,
+        draggable: false,
+        transition: 200,
       },
       options
     );

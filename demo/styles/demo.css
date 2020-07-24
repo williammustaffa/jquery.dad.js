@@ -1,12 +1,8 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
 body {
   font-family: "bebas_neueregular", sans-serif;
   height: 800px;
-  background: black;
+  background: #2c2c54;
+  overflow-x: hidden;
 }
 
 h2 {
@@ -21,234 +17,127 @@ h3 {
   color: #639bf6;
 }
 
-.margin {
-  padding: 100px 0;
-}
-
-.logo {
+#dad-logo {
+  display: flex;
+  flex-direction: row;
   background: none !important;
+  margin-bottom: 50px;
+  width: 500px;
+  align-self: center;
 }
 
-.logo img {
+#dad-logo > div {
+  width: 100%;
+}
+
+#dad-logo img {
   max-width: 100%;
   display: block;
-  padding: 0 15px;
+  margin: 0 auto;
 }
 
-#daddy::after {
+.clearfix:after {
   content: "";
-  clear: both !important;
   display: block;
+  clear: both;
 }
 
-#daddy > div {
-  box-sizing: border-box;
-  width: 20%;
-  padding: 5px;
-  float: left;
-  display: block;
-  position: relative;
-}
-
-#daddy > div > div {
-  display: block;
-  height: 120px;
-  line-height: 120px;
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  background: #639bf6;
-  color: white;
-  font-family: "Arial", sans-serif;
-}
-
-#daddy2::after {
-  content: "";
-  clear: both !important;
-  display: block;
-}
-
-#daddy2 > div {
-  box-sizing: border-box;
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
   width: 100%;
-  padding: 5px;
-  float: left;
-  display: block;
-  position: relative;
 }
 
-#daddy2 > div > div {
-  display: block;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
+/* Dad should ignore margin */
+.dad-demo > div {
+  margin-bottom: 15px;
+}
+
+.dad-demo .item {
+  position: relative;
+  font-family: "Arial", sans-serif;
+  align-content: center;
+  justify-content: center;
+  height: 10vw;
+  width: 100%;
   font-size: 30px;
   font-weight: bold;
   background: #639bf6;
-  color: white;
-  font-family: "Arial", sans-serif;
+  color: #2c2c54;
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
 }
 
-#daddy3::after {
-  content: "";
-  clear: both !important;
+.dad-demo span:not(.draggable) {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dad-demo span.draggable {
+  text-align: center;
   display: block;
+  width: 100%;
+  background: #639bf6;
+  color: #2c2c54;
+  margin-bottom: 5px;
 }
 
-#daddy3 > div {
-  box-sizing: border-box;
+#dad-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+#dad-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+#dad-multiline {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#dad-horizontal > div {
+  flex-direction: row;
+}
+
+#dad-horizontal > div,
+#dad-vertical > div,
+#dad-multiline > div {
+  width: 100%;
+}
+
+#dad-multiline > div {
   width: 25%;
-  padding: 5px;
-  float: left;
-  display: block;
-  position: relative;
+  flex-wrap: wrap;
 }
 
-#daddy3 > div > div,
-.item {
+#dad-draggable,
+#dad-droppable,
+#dad-bootstrap {
   display: block;
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  background: #639bf6;
-  color: white;
-  font-family: "Arial", sans-serif;
-}
-
-.item {
-  margin: 15px;
-  display: block;
-  background: #639bf6;
-  position: relative;
-}
-
-.comments {
-  background: black;
-  margin: 50px 0 0 0;
-  padding: 30px;
 }
 
 footer {
-  display: block;
-  margin-top: 100px;
-  padding: 20px 0;
-  background: #000000;
-}
-
-footer img {
-  width: 150px;
-}
-
-footer span {
+  background: #18182b;
+  text-align: center;
   color: #639bf6;
-  font-size: 21px;
-  font-weight: bold;
-  text-align: center;
-  display: block;
+  padding: 30px 10px;
+  margin-top: 40px;
+  font-size: 18px;
 }
 
-.draggable {
-  border-bottom: 4px solid black;
-  font-family: "bebas_neueregular", sans-serif;
-  color: #ffffff;
-  line-height: 18px;
-  text-align: center;
-  font-size: 16px;
-  width: 100%;
-  display: block;
-  height: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #639bf6;
+footer a {
+  color: #639bf6;
 }
 
-.downloadContainer {
-  max-width: 100%;
-  display: block;
-  position: relative;
-  width: 716px;
-  margin: 150px auto 0 auto;
-}
-
-.button {
-  max-width: 100%;
-  border: 4px solid #639bf6;
-  box-sizing: border-box;
-  display: block;
-  float: left;
-  width: 716px;
-  margin: 4px;
-  color: #000000;
-  text-align: center;
-  font-size: 21px;
-  padding: 10px 20px;
-  background: #639bf6;
-}
-
-.button:hover {
-  background: transparent;
-  cursor: pointer;
-  border: 4px solid #639bf6;
+footer a:hover {
   text-decoration: none;
   color: #639bf6;
-}
-
-.desc {
-  font-size: 21px;
-}
-
-.dropzone::before {
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -ms-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-  content: "Drop here to remove";
-  line-height: 260px;
-  text-align: center;
-  width: 100%;
-  display: block;
-  font-size: 26px;
-}
-
-.dropzone {
-  border: 4px dashed #639bf6;
-  color: #639bf6;
-  min-height: 260px;
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -ms-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-  opacity: 0.3;
-}
-
-.btndemo {
-  width: 100px;
-  text-align: center;
-  margin: 15px;
-  border: solid #639bf6;
-  display: block;
-  height: 50px;
-  line-height: 42px;
-  font-family: "bebas_neueregular", sans-serif;
-  float: left;
-  background: #639bf6;
-  color: white;
-  font-size: 16px;
-}
-
-.btndemo:hover,
-.btndemo.active {
-  text-decoration: none;
-  color: #639bf6;
-  background: black;
-  border: 4px solid #639bf6;
-}
-
-.dropzone.active {
-  opacity: 1;
 }

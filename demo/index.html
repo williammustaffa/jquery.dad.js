@@ -317,12 +317,11 @@
           placeholder: { target: ".item" }
         })
 
-
         // activating
         $("#activate").on("click", function () {
           togglable.activate();
 
-          // Handle button style
+          // Button style only
           $(".button").not(this).removeClass("active");
           $(this).addClass("active");
         })
@@ -331,24 +330,10 @@
         $("#deactivate").on("click", function () {
           togglable.deactivate();
 
-          // Handle button style
+          // Button style only
           $(".button").not(this).removeClass("active");
           $(this).addClass("active");
         })
-        // //dad activate and deactivate
-        // $(".act").on("click", function () {
-        //   $(".btndemo").not(this).removeClass("active");
-        //   $(this).addClass("active");
-        //   d.css("opacity", 1);
-        //   d.activate();
-        // });
-
-        // $(".deact").on("click", function () {
-        //   $(".btndemo").not(this).removeClass("active");
-        //   $(this).addClass("active");
-        //   d.css("opacity", 0.5);
-        //   d.deactivate();
-        // });
       });
     </script>
   </body>

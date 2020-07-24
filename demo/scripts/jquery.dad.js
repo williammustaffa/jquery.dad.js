@@ -41,8 +41,6 @@
     }
   };
 
-  var mouse = new DadMouse();
-
   /**
    * DAD class constructor
    * @param {element} element
@@ -272,9 +270,9 @@
   };
 
   $.fn.dad = function (options) {
-    var options = $.extend(
+    var mergedOptions = $.extend(
       {
-        placeholder: "<div style='border: 4px dashed #706fd3'></div>",
+        placeholder: "<div style='border: 4px dashed #639bf6'></div>",
         active: true,
         draggable: false,
         transition: 200,
@@ -283,7 +281,7 @@
     );
 
     $(this).each(function () {
-      this.dad = new Dad(this, options);
+      this.dad = new Dad(this, mergedOptions);
     });
 
     return {

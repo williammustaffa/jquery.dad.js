@@ -72,11 +72,11 @@
    */
   Dad.defaultOptions = {
     active: true,
-    draggable: null,
+    draggable: false,
     exchangeable: true,
     transition: 200,
-    placeholderTarget: null,
-    placeholderTemplate: null,
+    placeholderTarget: false,
+    placeholderTemplate: "<div />",
   };
 
   /**
@@ -216,10 +216,8 @@
       width: $target.outerWidth(),
     });
 
-    var placeholderTemplate = this.options.placeholderTarget || "<div />";
-
     // Add placeholder
-    var $placeholder = $(placeholderTemplate).css({
+    var $placeholder = $(this.options.placeholderTemplate).css({
       position: "absolute",
       pointerEvents: "none",
       zIndex: 9998,

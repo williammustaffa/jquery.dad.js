@@ -70,14 +70,14 @@
    * Static attribute that stores default dad options
    */
   Dad.defaultOptions = {
+    active: true,
+    draggable: false,
+    exchangeable: true,
+    transition: 200,
     placeholder: {
       template: "<div style='border: 4px dashed #639bf6'></div>",
       target: false,
     },
-    active: true,
-    draggable: false,
-    transition: 200,
-    debug: false,
   };
 
   /**
@@ -100,13 +100,6 @@
           }
         }
       });
-    }
-
-    if (parsedOptions.debug) {
-      console.info(
-        "[jquery.dad.js] Created a new dad container with the following options:",
-        parsedOptions
-      );
     }
 
     return parsedOptions;
@@ -135,15 +128,40 @@
 
     // Create a callback for click event
     function onChildClick(e) {
-      self.prepare(e, this);
+      var $target = $(this);
+      self.prepare(e, $target);
     }
 
     // Create a callback for enter event
     function onChildEnter(e) {
-      if (self.dragging) {
-        self.updatePlaceholder(e, this);
+      if (self.$current) {
+        var $this = $(this);
+        var isFromCurrent = !!self.$current.find(this).length;
+        var isExchangeable = self.options.exchangeable;
+
+        var shouldExchange = self.dragging && (isFromCurrent || isExchangeable);
+
+        if (shouldExchange) {
+          self.updatePlaceholder(e, $this);
+        }
       }
     }
+
+    // Set container comunication
+    this.$container.on("mouseenter touchenter", function (e) {
+      if (self.$current) {
+        var $this = $(this);
+        var isNotCurrent = !$this.is(self.$current);
+        var isExchangeable = self.options.exchangeable;
+
+        var shouldExchange = self.dragging && isNotCurrent && isExchangeable;
+
+        if (shouldExchange) {
+          self.$current = $this;
+          self.updatePlaceholder(e, $this, true);
+        }
+      }
+    });
 
     // Add element event listeners
     this.$container.on("mousedown touchstart", "> *", onChildClick);
@@ -165,14 +183,12 @@
    * @param {*} event click/mousedown event
    * @param {*} element target element
    */
-  Dad.prototype.prepare = function (e, element) {
+  Dad.prototype.prepare = function (e, $target) {
     var draggable = this.options.draggable;
     var shouldStartDragging =
       this.active && (draggable ? $(draggable + ":hover").length : true);
 
     if (shouldStartDragging) {
-      var $target = $(element);
-
       this.holding = true;
       this.$target = $target;
       this.$current = $target.closest(this.$container);
@@ -200,9 +216,10 @@
     // Add placeholder
     var $placeholder = $(this.options.placeholder.template).css({
       position: "absolute",
-      zIndex: 9998,
       pointerEvents: "none",
+      zIndex: 9998,
       margin: 0,
+      padding: 0,
       height: $target.outerHeight(),
       width: $target.outerWidth(),
     });
@@ -263,11 +280,19 @@
 
       // Do transition from clone to target
       $clone.animate(
-        { top: animateToY, left: animateToX },
+        {
+          top: animateToY,
+          left: animateToX,
+          height: $target.outerHeight(),
+          width: $target.outerWidth(),
+        },
         this.options.transition,
         function () {
+          // Remove dad elements
           $clone.remove();
           $placeholder.remove();
+
+          // Normalize target
           $target.removeAttr("data-dad-target");
           $target.css("visibility", "");
         }
@@ -302,13 +327,20 @@
    * Dad update placeholder position by
    * checking the current placeholder position
    */
-  Dad.prototype.updatePlaceholder = function (e, element) {
-    var $element = $(element);
+  Dad.prototype.updatePlaceholder = function (e, $element, isContainer) {
+    if (isContainer) {
+      // Move target
+      $element.append(this.$target);
 
-    if ($element.index() > this.$target.index()) {
-      $element.after(this.$target);
+      // And also move dad elements for positioning
+      $element.append(this.$clone);
+      $element.append(this.$placeholder);
     } else {
-      $element.before(this.$target);
+      if ($element.index() > this.$target.index()) {
+        $element.after(this.$target);
+      } else {
+        $element.before(this.$target);
+      }
     }
 
     this.updatePlaceholderPosition();
@@ -337,6 +369,18 @@
     });
   };
 
+  Dad.prototype.onDrop = function (selector, onDrop) {
+    var $dropzone = $(selector);
+
+    function onDropzoneEnter(e) {
+      var $this = $(this);
+
+      $this.attr("data-dad-active", true);
+    }
+
+    $dropzone.on("mouseenter touchenter", onDropzoneEnter);
+  };
+
   /**
    * Update container active status which later
    * will prevent the dragging to start on the prepare function
@@ -353,8 +397,6 @@
   Dad.prototype.deactivate = function () {
     this.setActive(false);
   };
-
-  Dad.prototype.addDropzone = function () {};
 
   $.fn.dad = function (options) {
     return new Dad(this, options);

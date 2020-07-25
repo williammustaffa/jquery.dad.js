@@ -80,7 +80,7 @@ h3 {
 }
 
 /* dad common demo styles */
-.dad-demo .item {
+.area .item {
   position: relative;
   font-family: "Arial", sans-serif;
   align-content: center;
@@ -95,22 +95,21 @@ h3 {
 }
 
 /* non bootstrap style*/
-.dad-demo:not(.bootstrap) {
+.area:not(.bootstrap) {
   margin: 10px -10px;
 }
 
-.dad-demo:not(.bootstrap) > div {
+.area:not(.bootstrap) > div {
   padding: 10px;
-  width: 100%;
 }
 
 /* bootstrap style */
-.dad-demo.bootstrap [class*="col-"] {
+.area.bootstrap [class*="col-"] {
   margin-bottom: 20px;
 }
 
 /* dad draggable demo */
-.dad-demo span:not(.draggable) {
+.area span:not(.draggable) {
   display: inline-block;
   position: absolute;
   top: 50%;
@@ -119,7 +118,7 @@ h3 {
   text-align: center;
 }
 
-.dad-demo span.draggable {
+.area span.draggable {
   text-align: center;
   display: block;
   width: 100%;
@@ -129,13 +128,13 @@ h3 {
 }
 
 /* demo multiline */
-#dad-multiline {
+.area-flex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-#dad-multiline > div {
+.area-flex > div {
   width: 25%;
   flex-wrap: wrap;
 }
@@ -150,34 +149,13 @@ h3 {
 }
 
 /* demo dropzone*/
-.dropzones {
-  margin-bottom: 20px;
+.dropzones .dad-droppable > div {
+  width: 50%;
 }
 
-.dropzone {
-  border: 4px dashed #639bf6;
-  color: #639bf6;
-  height: 22vw;
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -ms-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-  opacity: 0.5;
-}
-
-.dropzone:before {
-  content: "DROP HERE TO REMOVE";
-  font-weight: bold;
-  position: absolute;
-  display: inline-block;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.dropzone[data-dad-active] {
-  opacity: 1;
+.dad-droppable {
+  border: 2px dashed #639bf6;
+  min-height: 108px;
 }
 
 /* footer section */

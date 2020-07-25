@@ -91,14 +91,13 @@
         <div><img src="assets/piece2.png" /></div>
         <div><img src="assets/piece1.png" /></div>
       </div>
-
       <h1 class="text-center cover-title">
         A simple and awesome jquery <strong>Drag And Drop</strong> plugin!
       </h1>
     </div>
     <div class="container">
       <h3 class="text-center">Multiline & dynamic children</h3>
-      <div id="dad-multiline" class="dad-demo dad-example">
+      <div id="dad-multiline" class="area area-flex dad-example">
         <div>
           <div class="item"><span>1</span></div>
         </div>
@@ -133,7 +132,7 @@
       <h3 class="text-center">
         Bootstrap Grids
       </h3>
-      <div id="dad-bootstrap" class="row dad-demo dad-example bootstrap">
+      <div id="dad-bootstrap" class="row area dad-example bootstrap">
         <div class="col-xs-6">
           <div class="item"><span>1</span></div>
         </div>
@@ -158,7 +157,7 @@
       </div>
 
       <h3 class="text-center">Set draggable child area:</h3>
-      <div id="dad-draggable" class="row dad-demo bootstrap">
+      <div id="dad-draggable" class="row area bootstrap">
         <div class="col-md-3 col-xs-6">
           <div class="item-draggable">
             <span class="draggable">&bull; &bull; &bull;</span>
@@ -226,7 +225,7 @@
       </div>
 
       <h3 class="text-center">Activate and deactivate</h3>
-      <div id="dad-togglable" class="row dad-demo bootstrap">
+      <div id="dad-togglable" class="row area bootstrap">
         <div class="col-xs-6">
           <div class="item"><span>1</span></div>
         </div>
@@ -249,24 +248,53 @@
 
       <h3 class="text-center">Dropzones</h3>
       <div class="row">
-        <div class="col-xs-6 dropzones">
-          <div id="dad-droppable" class="row dad-demo bootstrap">
-            <div class="col-xs-6">
+        <div class="col-xs-12">
+          <div class="row area area-flex dad-droppable">
+            <div>
               <div class="item"><span>1</span></div>
             </div>
-            <div class="col-xs-6">
+            <div>
               <div class="item"><span>2</span></div>
             </div>
-            <div class="col-xs-6">
+            <div>
               <div class="item"><span>3</span></div>
             </div>
-            <div class="col-xs-6">
+            <div>
               <div class="item"><span>4</span></div>
             </div>
           </div>
         </div>
+        <div class="col-xs-6 dropzones">
+          <div class="row area area-flex dad-droppable">
+            <div>
+              <div class="item"><span>A</span></div>
+            </div>
+            <div>
+              <div class="item"><span>B</span></div>
+            </div>
+            <div>
+              <div class="item"><span>C</span></div>
+            </div>
+            <div>
+              <div class="item"><span>D</span></div>
+            </div>
+          </div>
+        </div>
         <div class="col-xs-6">
-          <div class="dropzone"></div>
+          <div class="row area area-flex dad-droppable">
+            <div>
+              <div class="item"><span>X</span></div>
+            </div>
+            <div>
+              <div class="item"><span>W</span></div>
+            </div>
+            <div>
+              <div class="item"><span>Y</span></div>
+            </div>
+            <div>
+              <div class="item"><span>Z</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -285,6 +313,7 @@
 
         // Common dad
         $(".dad-example").dad({
+          exchangeable: false,
           placeholder: { target: ".item" },
         });
 
@@ -330,12 +359,8 @@
         });
 
         // Dropzone example
-        var droppable = $("#dad-droppable").dad({
+        var droppable = $(".dad-droppable").dad({
           placeholder: { target: ".item" },
-        });
-
-        droppable.addDropzone(function (e) {
-          $(this).remove();
         });
       });
     </script>

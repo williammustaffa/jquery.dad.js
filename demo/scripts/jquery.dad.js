@@ -72,13 +72,11 @@
    */
   Dad.defaultOptions = {
     active: true,
-    draggable: false,
+    draggable: null,
     exchangeable: true,
     transition: 200,
-    placeholder: {
-      template: "<div style='border: 4px dashed #639bf6'></div>",
-      target: false,
-    },
+    placeholderTarget: null,
+    placeholderTemplate: null,
   };
 
   /**
@@ -194,8 +192,6 @@
         : true);
 
     if (shouldStartDragging) {
-      e.preventDefault();
-
       this.holding = true;
       this.$target = $target;
       this.$current = $target.closest(this.$container);
@@ -220,8 +216,10 @@
       width: $target.outerWidth(),
     });
 
+    var placeholderTemplate = this.options.placeholderTarget || "<div />";
+
     // Add placeholder
-    var $placeholder = $(this.options.placeholder.template).css({
+    var $placeholder = $(placeholderTemplate).css({
       position: "absolute",
       pointerEvents: "none",
       zIndex: 9998,
@@ -363,10 +361,10 @@
    * Update placeholder position based on its options
    */
   Dad.prototype.updatePlaceholderPosition = function () {
-    var placeholderOptions = this.options.placeholder;
+    var placeholderTarget = this.options.placeholderTarget;
 
-    var $target = placeholderOptions.target
-      ? this.$target.find(placeholderOptions.target)
+    var $target = placeholderTarget
+      ? this.$target.find(placeholderTarget)
       : this.$target;
 
     var targetTop = $target.offset().top - this.$current.offset().top;

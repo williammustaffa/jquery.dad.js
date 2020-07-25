@@ -124,13 +124,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 button-group">
           <div class="button add-child">ADD CHILD</div>
           <div class="button remove-child">REMOVE CHILD</div>
         </div>
       </div>
       <h3 class="text-center">
-        Bootstrap Grids
+        Bootstrap Grids</br>
+        <small>(This can get messy due to the row sizing logic)</small>
       </h3>
       <div id="dad-bootstrap" class="row area dad-example bootstrap">
         <div class="col-xs-6">
@@ -240,7 +241,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 button-group">
           <div id="activate" class="button">ACTIVATE</div>
           <div id="deactivate" class="button active">DEACTIVATE</div>
         </div>
@@ -249,20 +250,7 @@
       <h3 class="text-center">Dropzones</h3>
       <div class="row">
         <div class="col-xs-12">
-          <div class="row area-1 area area-flex dad-droppable">
-            <div>
-              <div class="item"><span>1</span></div>
-            </div>
-            <div>
-              <div class="item"><span>2</span></div>
-            </div>
-            <div>
-              <div class="item"><span>3</span></div>
-            </div>
-            <div>
-              <div class="item"><span>4</span></div>
-            </div>
-          </div>
+          <div class="row area-1 area area-flex dad-droppable"></div>
         </div>
         <div class="col-xs-6 dropzones">
           <div class="row area-2 area area-flex dad-droppable">
@@ -283,16 +271,16 @@
         <div class="col-xs-6">
           <div class="row area-3 area area-flex dad-droppable">
             <div>
-              <div class="item"><span>X</span></div>
+              <div class="item"><span>1</span></div>
             </div>
             <div>
-              <div class="item"><span>W</span></div>
+              <div class="item"><span>2</span></div>
             </div>
             <div>
-              <div class="item"><span>Y</span></div>
+              <div class="item"><span>3</span></div>
             </div>
             <div>
-              <div class="item"><span>Z</span></div>
+              <div class="item"><span>4</span></div>
             </div>
           </div>
         </div>
@@ -364,16 +352,7 @@
         });
 
         $(".area-1").on("dadDropEnd", function (e, element) {
-          console.log("praia", element);
-          alert("Placed on area 1: " + $(element).text());
-        });
-
-        $(".area-2").on("dadDropEnd", function (e, element) {
-          alert("Placed on area 2: " + $(element).text());
-        });
-
-        $(".area-3").on("dadDropEnd", function (e, element) {
-          alert("Placed on area 3: " + $(element).text());
+          $(element).remove();
         });
       });
     </script>

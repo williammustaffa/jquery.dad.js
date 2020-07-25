@@ -6,8 +6,6 @@
 (function ($) {
   "use strict";
 
-  var supportsTouch = "ontouchstart" in window || navigator.msMaxTouchPoints;
-
   /**
    * Mouse constructor
    */
@@ -24,13 +22,16 @@
    */
   DadMouse.prototype.update = function (e) {
     // Check if it is touch
-    if (supportsTouch && e.type == "touchmove") {
+    if (
+      ("ontouchstart" in window || navigator.msMaxTouchPoints) &&
+      e.type == "touchmove"
+    ) {
       var targetEvent = e.originalEvent.touches[0];
       var mouseTarget = document.elementFromPoint(
         targetEvent.clientX,
         targetEvent.clientY
       );
-      $(mouseTarget).trigger("touchenter"); // TODO: check if this is necessary
+      $(mouseTarget).trigger("touchenter");
 
       // update mouse coordinates from touch
       this.positionX = targetEvent.pageX;
@@ -185,10 +186,16 @@
    */
   Dad.prototype.prepare = function (e, $target) {
     var draggable = this.options.draggable;
+    var $draggable = draggable && $(draggable);
     var shouldStartDragging =
-      this.active && (draggable ? $(draggable + ":hover").length : true);
+      this.active &&
+      ($draggable
+        ? $draggable.is(e.target) || $draggable.find(e.target).length
+        : true);
 
     if (shouldStartDragging) {
+      e.preventDefault();
+
       this.holding = true;
       this.$target = $target;
       this.$current = $target.closest(this.$container);
@@ -265,7 +272,7 @@
   /**
    * Final step, ocurrs on mouseup
    */
-  Dad.prototype.end = function () {
+  Dad.prototype.end = function (e) {
     this.holding = false;
 
     // Finish dragging if is dragging

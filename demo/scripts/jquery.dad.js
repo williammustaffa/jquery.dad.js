@@ -51,6 +51,7 @@
 
     // jQuery elements
     this.$container = $(element);
+    this.$current = null;
     this.$target = null;
     this.$clone = null;
 
@@ -170,8 +171,11 @@
       this.active && (draggable ? $(draggable + ":hover").length : true);
 
     if (shouldStartDragging) {
+      var $target = $(element);
+
       this.holding = true;
-      this.$target = $(element);
+      this.$target = $target;
+      this.$current = $target.closest(this.$container);
       this.mouse.update(e);
     }
   };
@@ -217,7 +221,7 @@
     this.$placeholder = $placeholder;
 
     // Add elements to container
-    this.$container.append($placeholder).append($clone);
+    this.$current.append($placeholder).append($clone);
 
     // Set clone and placeholder position
     this.updateClonePosition();
@@ -249,13 +253,13 @@
 
     // Finish dragging if is dragging
     if (this.dragging) {
-      var $container = this.$container;
+      var $current = this.$current;
       var $target = this.$target;
       var $clone = this.$clone;
       var $placeholder = this.$placeholder;
 
-      var animateToX = $target.offset().left - $container.offset().left;
-      var animateToY = $target.offset().top - $container.offset().top;
+      var animateToX = $target.offset().left - $current.offset().left;
+      var animateToY = $target.offset().top - $current.offset().top;
 
       // Do transition from clone to target
       $clone.animate(
@@ -271,6 +275,9 @@
 
       // Reset variables
       this.dragging = false;
+
+      // Reset elements
+      this.$current = null;
       this.$target = null;
       this.$clone = null;
       this.$placeholder = null;
@@ -282,10 +289,10 @@
    */
   Dad.prototype.updateClonePosition = function () {
     // Get positions
-    var containerX = this.$container.offset().top;
-    var containerY = this.$container.offset().left;
-    var targetX = this.mouse.positionY - containerX - this.mouse.offsetY;
-    var targetY = this.mouse.positionX - containerY - this.mouse.offsetX;
+    var targetX =
+      this.mouse.positionY - this.$current.offset().top - this.mouse.offsetY;
+    var targetY =
+      this.mouse.positionX - this.$current.offset().left - this.mouse.offsetX;
 
     // Update clone
     this.$clone.css({ top: targetX, left: targetY });
@@ -317,8 +324,8 @@
       ? this.$target.find(placeholderOptions.target)
       : this.$target;
 
-    var targetTop = $target.offset().top - this.$container.offset().top;
-    var targetLeft = $target.offset().left - this.$container.offset().left;
+    var targetTop = $target.offset().top - this.$current.offset().top;
+    var targetLeft = $target.offset().left - this.$current.offset().left;
     var targetHeight = $target.outerHeight();
     var targetWidth = $target.outerWidth();
 
@@ -339,40 +346,17 @@
     this.$container.attr("data-dad-active", isActive);
   };
 
+  Dad.prototype.activate = function () {
+    this.setActive(true);
+  };
+
+  Dad.prototype.deactivate = function () {
+    this.setActive(false);
+  };
+
+  Dad.prototype.addDropzone = function () {};
+
   $.fn.dad = function (options) {
-    var $this = $(this);
-
-    $(this).each(function () {
-      this.dad = new Dad(this, options);
-    });
-
-    /**
-     * Activate dad instances
-     */
-    function activate() {
-      $this.each(function () {
-        this.dad.setActive(true);
-      });
-    }
-
-    /**
-     * Deactivate dad instances
-     */
-    function deactivate() {
-      $this.each(function () {
-        this.dad.setActive(false);
-      });
-    }
-
-    /**
-     * Deactivate dad instances
-     */
-    function addDropzone() {}
-
-    return {
-      addDropzone: addDropzone,
-      activate: activate,
-      deactivate: deactivate,
-    };
+    return new Dad(this, options);
   };
 })(jQuery);

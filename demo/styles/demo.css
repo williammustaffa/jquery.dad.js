@@ -116,6 +116,7 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .dad-demo span.draggable {
@@ -125,26 +126,6 @@ h3 {
   background: #639bf6;
   color: #2c2c54;
   margin-bottom: 5px;
-}
-
-/* dad horizontal demo */
-#dad-horizontal {
-  display: flex;
-  flex-direction: row;
-}
-
-#dad-horizontal > div {
-  flex-direction: row;
-}
-
-/* dad vertical demo */
-#dad-vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-#dad-vertical .item {
-  height: 80px;
 }
 
 /* demo multiline */
@@ -166,6 +147,21 @@ h3 {
 
 #dad-togglable[data-dad-active="false"] {
   opacity: 0.5;
+}
+
+/* demo dropzone*/
+.dropzones {
+  margin-bottom: 20px;
+}
+
+.dropzones .action {
+  border: 4px dashed #639bf6;
+  padding: 20px;
+  display: block;
+  text-align: center;
+  color: #639bf6;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 /* footer section */

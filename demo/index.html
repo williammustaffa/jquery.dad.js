@@ -97,44 +97,6 @@
       </h1>
     </div>
     <div class="container">
-      <h3 class="text-center">Horizontal D&D</h3>
-      <div id="dad-horizontal" class="dad-demo dad-example">
-        <div>
-          <div class="item"><span>1</span></div>
-        </div>
-        <div>
-          <div class="item"><span>2</span></div>
-        </div>
-        <div>
-          <div class="item"><span>3</span></div>
-        </div>
-        <div>
-          <div class="item"><span>4</span></div>
-        </div>
-        <div>
-          <div class="item"><span>5</span></div>
-        </div>
-      </div>
-
-      <h3 class="text-center">Vertical D&D</h3>
-      <div id="dad-vertical" class="dad-demo dad-example">
-        <div>
-          <div class="item"><span>1</span></div>
-        </div>
-        <div>
-          <div class="item"><span>2</span></div>
-        </div>
-        <div>
-          <div class="item"><span>3</span></div>
-        </div>
-        <div>
-          <div class="item"><span>4</span></div>
-        </div>
-        <div>
-          <div class="item"><span>5</span></div>
-        </div>
-      </div>
-
       <h3 class="text-center">Multiline & dynamic children</h3>
       <div id="dad-multiline" class="dad-demo dad-example">
         <div>
@@ -169,7 +131,7 @@
         </div>
       </div>
       <h3 class="text-center">
-        Bootstrap Grids (This can get messy as you change it)
+        Bootstrap Grids
       </h3>
       <div id="dad-bootstrap" class="row dad-demo dad-example bootstrap">
         <div class="col-xs-6">
@@ -280,19 +242,51 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <div id="activate" class="button active">ACTIVATE</div>
-          <div id="deactivate" class="button">DEACTIVATE</div>
+          <div id="activate" class="button">ACTIVATE</div>
+          <div id="deactivate" class="button active">DEACTIVATE</div>
         </div>
       </div>
-        <div class="col-xs-12">
+
+      <h3 class="text-center">Dropzones</h3>
+      <div class="row">
+        <div class="col-xs-12 dropzones">
           <div class="row">
-            <div class="col-xs-12">
-              <div class="dropzone"></div>
+            <div class="col-xs-4">
+              <div class="action delete">
+                Delete
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="action archive">
+                Send to archive
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="action anything">
+                Do anything
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 dropzones">
+          <div id="dad-droppable" class="row dad-demo bootstrap">
+            <div class="col-xs-6">
+              <div class="item"><span>1</span></div>
+            </div>
+            <div class="col-xs-6">
+              <div class="item"><span>2</span></div>
+            </div>
+            <div class="col-xs-6">
+              <div class="item"><span>3</span></div>
+            </div>
+            <div class="col-xs-6">
+              <div class="item"><span>4</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="clearfix"></div>
     <footer>
       <a href="https://konsole.studio">
@@ -307,52 +301,53 @@
 
         // Common events
         $(".dad-example").dad({
-          placeholder: { target: ".item" }
+          placeholder: { target: ".item" },
         });
 
         // Multiline/dynamic
         $(".add-child").on("click", function () {
           // Create new element
-          var newElement = document.createElement('div');
-          newElement.innerHTML = "<div class=\"item\"><span>Hi dad!</span></div>";
+          var newElement = document.createElement("div");
+          newElement.innerHTML = '<div class="item"><span>Hi dad!</span></div>';
 
-          // Add element
-          $("#dad-multiline").append(newElement)
+          $("#dad-multiline").append(newElement);
         });
 
         $(".remove-child").on("click", function () {
-          $("#dad-multiline > div:last").remove()
+          $("#dad-multiline > div:last").remove();
         });
 
         // draggable
         $("#dad-draggable").dad({
           draggable: ".draggable",
-          placeholder: { target: '.item-draggable' }
+          placeholder: { target: ".item-draggable" },
         });
 
         // activate and deactivate
         var togglable = $("#dad-togglable").dad({
           active: false,
-          placeholder: { target: ".item" }
-        })
+          placeholder: { target: ".item" },
+        });
 
-        // activating
         $("#activate").on("click", function () {
           togglable.activate();
 
           // Button style only
           $(".button").not(this).removeClass("active");
           $(this).addClass("active");
-        })
+        });
 
-        // deactivating
         $("#deactivate").on("click", function () {
           togglable.deactivate();
 
           // Button style only
           $(".button").not(this).removeClass("active");
           $(this).addClass("active");
-        })
+        });
+
+        $("#dad-droppable").dad({
+          placeholder: { target: ".item" },
+        });
       });
     </script>
   </body>

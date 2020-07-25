@@ -51,17 +51,17 @@
 
     // jQuery elements
     this.$container = $(element);
-    this.$children = this.$container.children();
     this.$target = null;
     this.$clone = null;
 
-    // General variables
+    // Inner variables
     this.mouse = new DadMouse();
-    this.active = true;
     this.holding = false;
     this.dragging = false;
+    this.dropzones = [];
 
-    // Add event listeners, data attributes and etc
+    // Configure and setup
+    this.setActive(this.options.active);
     this.setup();
   }
 
@@ -90,7 +90,7 @@
       $.each(parsedOptions, function (key, value) {
         var overrideValue = options[key];
 
-        if (overrideValue) {
+        if (typeof overrideValue !== "undefined") {
           // Valid for arrays as well
           if (typeof overrideValue === "object") {
             parsedOptions[key] = $.extend(parsedOptions[key], overrideValue);
@@ -129,38 +129,41 @@
       "user-select": "none",
     });
 
-    // update
-    this.setActive(this.active);
-
     // Prevent dragging images on IE
     this.$container.find("img").attr("ondragstart", "return false");
 
-    // Add dad-id attribute to children
-    this.$children.each(function (index) {
-      $(this).attr("data-dad-id", index);
-    });
-
-    // Add element event listeners
-    this.$children.on("mousedown touchstart", function (e) {
+    // Create a callback for click event
+    function onChildClick(e) {
       self.prepare(e, this);
-    });
+    }
 
-    // Add listener for placeholder
-    this.$children.on("mouseenter touchenter", function (e) {
+    // Create a callback for enter event
+    function onChildEnter(e) {
       if (self.dragging) {
         self.updatePlaceholder(e, this);
       }
-    });
+    }
+
+    // Add element event listeners
+    this.$container.on("mousedown touchstart", "> *", onChildClick);
+    this.$container.on("mouseenter touchenter", "> *", onChildEnter);
 
     // Add window event listeners
     $("body").on("mousemove touchmove", this.update.bind(this));
     $("body").on("mouseup touchend", this.end.bind(this));
 
     // Cancelling drag due to browser native actions
+    // Note: Using window on mouseleave causes a bug...
     $("body").on("mouseleave", this.end.bind(this));
     $(window).on("blur", this.end.bind(this));
   };
 
+  /**
+   * Prepare container to start dragging
+   *
+   * @param {*} event click/mousedown event
+   * @param {*} element target element
+   */
   Dad.prototype.prepare = function (e, element) {
     var draggable = this.options.draggable;
     var shouldStartDragging =
@@ -204,7 +207,8 @@
     this.mouse.offsetX = this.mouse.positionX - $target.offset().left;
     this.mouse.offsetY = this.mouse.positionY - $target.offset().top;
 
-    $target.css("opacity", "0.2");
+    $target.css("visibility", "hidden");
+    $target.attr("data-dad-target", true);
 
     // Setting variables
     this.dragging = true;
@@ -260,8 +264,8 @@
         function () {
           $clone.remove();
           $placeholder.remove();
-          $target.removeAttr("data-dad-active");
-          $target.css("opacity", "");
+          $target.removeAttr("data-dad-target");
+          $target.css("visibility", "");
         }
       );
 
@@ -273,6 +277,9 @@
     }
   };
 
+  /**
+   * Dad update clone position based on the mouse position
+   */
   Dad.prototype.updateClonePosition = function () {
     // Get positions
     var containerX = this.$container.offset().top;
@@ -280,7 +287,7 @@
     var targetX = this.mouse.positionY - containerX - this.mouse.offsetY;
     var targetY = this.mouse.positionX - containerY - this.mouse.offsetX;
 
-    // Update clone positi
+    // Update clone
     this.$clone.css({ top: targetX, left: targetY });
   };
 

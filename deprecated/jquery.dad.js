@@ -4,20 +4,20 @@
  */
 
 (function ($) {
-  'use strict';
-  var supportsTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+  "use strict";
+  var supportsTouch = "ontouchstart" in window || navigator.msMaxTouchPoints;
 
   $.fn.dad = function (opts) {
     var _this = this;
 
     var defaults = {
-      target: '>div',
+      target: ">div",
       draggable: false,
-      placeholder: '',
+      placeholder: "",
       callback: false,
-      containerClass: 'dad-container',
-      childrenClass: 'dads-children',
-      cloneClass: 'dads-children-clone',
+      containerClass: "dad-container",
+      childrenClass: "dads-children",
+      cloneClass: "dads-children-clone",
       active: true,
     };
 
@@ -28,12 +28,12 @@
       var $daddy = $(this);
       var childrenClass = options.childrenClass;
       var cloneClass = options.cloneClass;
-      var jQclass = '.' + childrenClass;
+      var jQclass = "." + childrenClass;
       var $target = $daddy.find(options.target);
       var placeholder = options.placeholder;
       var callback = options.callback;
-      var dragClass = 'dad-draggable-area';
-      var holderClass = 'dads-children-placeholder';
+      var dragClass = "dad-draggable-area";
+      var holderClass = "dads-children-placeholder";
 
       // HANDLE MOUSE
       var mouse = {
@@ -62,16 +62,15 @@
         },
       };
 
-      $(window).on('mousemove touchmove', function (e) {
+      $(window).on("mousemove touchmove", function (e) {
         var ev = e;
 
         if (mouse.clone !== false && mouse.target !== false) e.preventDefault();
 
-        if (supportsTouch && e.type == 'touchmove') {
+        if (supportsTouch && e.type == "touchmove") {
           ev = e.originalEvent.touches[0];
-          var mouseTarget = document.elementFromPoint(ev.clientX, ev.clientY);
 
-          $(mouseTarget).trigger('touchenter');
+          $(mouseTarget).trigger("touchenter");
         }
 
         mouse.move(ev);
@@ -79,50 +78,57 @@
 
       $daddy.addClass(options.containerClass);
 
-      if (!$daddy.hasClass('dad-active') && active === true) {
-        $daddy.addClass('dad-active');
-      };
+      if (!$daddy.hasClass("dad-active") && active === true) {
+        $daddy.addClass("dad-active");
+      }
 
       _this.addDropzone = function (selector, func) {
-        $(selector).on('mouseenter touchenter', function () {
-          if (mouse.target !== false) {
-            mouse.placeholder.css({ display: 'none' });
-            mouse.target.css({ display: 'none' });
-            $(this).addClass('active');
-          }
-        }).on('mouseup touchend', function () {
-          if (mouse.target != false) {
-            mouse.placeholder.css({ display: 'block' });
-            mouse.target.css({ display: 'block' });
-            func(mouse.target);
-            dadEnd();
-          };
+        $(selector)
+          .on("mouseenter touchenter", function () {
+            if (mouse.target !== false) {
+              mouse.placeholder.css({ display: "none" });
+              mouse.target.css({ display: "none" });
+              $(this).addClass("active");
+            }
+          })
+          .on("mouseup touchend", function () {
+            if (mouse.target != false) {
+              mouse.placeholder.css({ display: "block" });
+              mouse.target.css({ display: "block" });
+              func(mouse.target);
+              dadEnd();
+            }
 
-          $(this).removeClass('active');
-        }).on('mouseleave touchleave', function () {
-          if (mouse.target !== false) {
-            mouse.placeholder.css({ display: 'block' });
-            mouse.target.css({ display: 'block' });
-          }
+            $(this).removeClass("active");
+          })
+          .on("mouseleave touchleave", function () {
+            if (mouse.target !== false) {
+              mouse.placeholder.css({ display: "block" });
+              mouse.target.css({ display: "block" });
+            }
 
-          $(this).removeClass('active');
-        });
+            $(this).removeClass("active");
+          });
       };
 
       // GET POSITION FUNCTION
       _this.getPosition = function () {
         var positionArray = [];
-        $(this).find(jQclass).each(function () {
-          positionArray[$(this).attr('data-dad-id')] = parseInt($(this).attr('data-dad-position'));
-        });
+        $(this)
+          .find(jQclass)
+          .each(function () {
+            positionArray[$(this).attr("data-dad-id")] = parseInt(
+              $(this).attr("data-dad-position")
+            );
+          });
 
         return positionArray;
       };
 
       _this.activate = function () {
         active = true;
-        if (!$daddy.hasClass('dad-active')) {
-          $daddy.addClass('dad-active');
+        if (!$daddy.hasClass("dad-active")) {
+          $daddy.addClass("dad-active");
         }
 
         return _this;
@@ -131,30 +137,33 @@
       // DEACTIVATE FUNCTION
       _this.deactivate = function () {
         active = false;
-        $daddy.removeClass('dad-active');
+        $daddy.removeClass("dad-active");
         return _this;
       };
 
       // DEFAULT DROPPING
-      $daddy.on('DOMNodeInserted', function (e) {
+      $daddy.on("DOMNodeInserted", function (e) {
         var $thisTarget = $(e.target);
-        if (!$thisTarget.hasClass(childrenClass) && !$thisTarget.hasClass(holderClass)) {
+        if (
+          !$thisTarget.hasClass(childrenClass) &&
+          !$thisTarget.hasClass(holderClass)
+        ) {
           $thisTarget.addClass(childrenClass);
         }
       });
 
-      $(document).on('mouseup touchend', function () {
+      $(document).on("mouseup touchend", function () {
         dadEnd();
       });
 
       // ORDER ELEMENTS
       var order = 1;
       $target.addClass(childrenClass).each(function () {
-        if ($(this).data('dad-id') == undefined) {
-          $(this).attr('data-dad-id', order);
+        if ($(this).data("dad-id") == undefined) {
+          $(this).attr("data-dad-id", order);
         }
 
-        $(this).attr('data-dad-position', order);
+        $(this).attr("data-dad-position", order);
         order++;
       });
 
@@ -162,14 +171,14 @@
       function updatePosition(e) {
         var order = 1;
         e.find(jQclass).each(function () {
-          $(this).attr('data-dad-position', order);
+          $(this).attr("data-dad-position", order);
           order++;
         });
       }
 
       // END EVENT
       function dadEnd() {
-        if (mouse.target != false &&  mouse.clone != false) {
+        if (mouse.target != false && mouse.clone != false) {
           if (callback != false) {
             callback(mouse.target);
           }
@@ -184,15 +193,21 @@
           //Math.floor(parseFloat($daddy.css('border-left-width')));
           //Math.floor(parseFloat($daddy.css('border-top-width')));
           if ($.contains($daddy[0], mouse.target[0])) {
-            mouse.clone.animate({
-              top: mouse.target.offset().top - $daddy.offset().top - bTop,
-              left: mouse.target.offset().left - $daddy.offset().left - bLeft,
-            }, 300, function () {
-              appear.css({
-                visibility: 'visible',
-              }).removeClass('active');
-              desappear.remove();
-            });
+            mouse.clone.animate(
+              {
+                top: mouse.target.offset().top - $daddy.offset().top - bTop,
+                left: mouse.target.offset().left - $daddy.offset().left - bLeft,
+              },
+              300,
+              function () {
+                appear
+                  .css({
+                    visibility: "visible",
+                  })
+                  .removeClass("active");
+                desappear.remove();
+              }
+            );
           } else {
             mouse.clone.fadeOut(300, function () {
               desappear.remove();
@@ -206,7 +221,7 @@
           updatePosition($daddy);
         }
 
-        $('html, body').removeClass('dad-noSelect');
+        $("html, body").removeClass("dad-noSelect");
       }
 
       // UPDATE EVENT
@@ -215,7 +230,7 @@
           var $origin = $('<span style="display:none"></span>');
           var $newplace = $('<span style="display:none"></span>');
 
-          if (obj.prevAll().hasClass('active')) {
+          if (obj.prevAll().hasClass("active")) {
             obj.after($newplace);
           } else {
             obj.before($newplace);
@@ -238,15 +253,19 @@
       }
 
       // GRABBING EVENT
-      var jq = (options.draggable !== false) ? options.draggable : jQclass;
+      var jq = options.draggable !== false ? options.draggable : jQclass;
       $daddy.find(jq).addClass(dragClass);
-      $daddy.on('mousedown touchstart', jq, function (e) {
+      $daddy.on("mousedown touchstart", jq, function (e) {
         // For touchstart we must update "mouse" position
-        if (e.type == 'touchstart') {
+        if (e.type == "touchstart") {
           mouse.updatePosition(e.originalEvent.touches[0]);
         }
 
-        if (mouse.target == false && active == true && (e.which == 1 || e.type == 'touchstart')) {
+        if (
+          mouse.target == false &&
+          active == true &&
+          (e.which == 1 || e.type == "touchstart")
+        ) {
           var $self = $(this);
 
           // GET TARGET
@@ -258,46 +277,50 @@
 
           // ADD CLONE
           mouse.clone = mouse.target.clone();
-          mouse.target.css({ visibility: 'hidden' }).addClass('active');
+          mouse.target.css({ visibility: "hidden" }).addClass("active");
           mouse.clone.addClass(cloneClass);
           $daddy.append(mouse.clone);
 
           // ADD PLACEHOLDER
-          var $placeholder = $('<div></div>');
+          var $placeholder = $("<div></div>");
           mouse.placeholder = $placeholder;
           mouse.placeholder.addClass(holderClass);
-          mouse.placeholder.css({
-            top: mouse.target.offset().top - $daddy.offset().top,
-            left: mouse.target.offset().left - $daddy.offset().left,
-            width: mouse.target.outerWidth() - 10,
-            height: mouse.target.outerHeight() - 10,
-            lineHeight: mouse.target.height() - 18 + 'px',
-            textAlign: 'center',
-          }).text(placeholder);
+          mouse.placeholder
+            .css({
+              top: mouse.target.offset().top - $daddy.offset().top,
+              left: mouse.target.offset().left - $daddy.offset().left,
+              width: mouse.target.outerWidth() - 10,
+              height: mouse.target.outerHeight() - 10,
+              lineHeight: mouse.target.height() - 18 + "px",
+              textAlign: "center",
+            })
+            .text(placeholder);
 
           $daddy.append(mouse.placeholder);
 
           // GET OFFSET FOR CLONE
-          var bLeft = Math.floor(parseFloat($daddy.css('border-left-width')));
-          var bTop = Math.floor(parseFloat($daddy.css('border-top-width')));
-          var difx = mouse.x - mouse.target.offset().left + $daddy.offset().left + bLeft;
-          var dify = mouse.y - mouse.target.offset().top + $daddy.offset().top + bTop;
+          var bLeft = Math.floor(parseFloat($daddy.css("border-left-width")));
+          var bTop = Math.floor(parseFloat($daddy.css("border-top-width")));
+          var difx =
+            mouse.x - mouse.target.offset().left + $daddy.offset().left + bLeft;
+          var dify =
+            mouse.y - mouse.target.offset().top + $daddy.offset().top + bTop;
           mouse.cloneoffset.x = difx;
           mouse.cloneoffset.y = dify;
 
           // REMOVE THE CHILDREN DAD CLASS AND SET THE POSITION ON SCREEN
           mouse.clone.removeClass(childrenClass).css({
-            position: 'absolute',
+            position: "absolute",
             top: mouse.y - mouse.cloneoffset.y,
             left: mouse.x - mouse.cloneoffset.x,
           });
 
           // UNABLE THE TEXT SELECTION AND SET THE GRAB CURSOR
-          $('html,body').addClass('dad-noSelect');
+          $("html,body").addClass("dad-noSelect");
         }
       });
 
-      $daddy.on('mouseenter touchenter', jQclass, function () {
+      $daddy.on("mouseenter touchenter", jQclass, function () {
         dadUpdate($(this));
       });
     });

@@ -1,0 +1,239 @@
+body {
+  font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+  font-weight: 100;
+  height: 800px;
+  background: #2c2c54;
+  overflow-x: hidden;
+}
+
+h1,
+h2 {
+  font-weight: 100;
+}
+
+strong,
+h3 {
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 30px;
+  padding: 120px 0 20px 0;
+  color: #639bf6;
+}
+
+h3 {
+  padding: 60px 0 20px 0;
+  color: #639bf6;
+}
+
+h3 small {
+  color: #639bf6;
+  font-weight: 100;
+}
+
+#dad-logo {
+  display: flex;
+  flex-direction: row;
+  background: none !important;
+  margin-bottom: 50px;
+  width: 500px;
+  max-width: 75%;
+  align-self: center;
+}
+
+#dad-logo > div {
+  width: 100%;
+}
+
+#dad-logo img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.cover-title {
+  color: #639bf6;
+  padding: 10px;
+}
+
+.button {
+  border: 4px solid #639bf6;
+  padding: 10px;
+  display: block;
+  float: left;
+  color: #639bf6;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button.active {
+  background: #639bf6;
+  color: #2c2c54;
+}
+
+.button.add-child {
+  border-right-width: 2px;
+}
+
+.button.remove-child {
+  border-left-width: 2px;
+}
+
+/* dad common demo styles */
+.container {
+  max-width: 900px;
+}
+
+.area .item {
+  position: relative;
+  font-family: "Arial", sans-serif;
+  align-content: center;
+  justify-content: center;
+  height: 100px;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  background: #639bf6;
+  color: #2c2c54;
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.8);
+}
+
+/* non bootstrap style*/
+.area:not(.bootstrap) {
+  margin: 10px -10px;
+}
+
+.area:not(.bootstrap) > div {
+  padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .button {
+    width: 50%;
+  }
+}
+
+/* bootstrap style */
+.area.bootstrap [class*="col-"] {
+  margin-bottom: 20px;
+}
+
+/* dad draggable demo */
+.area span:not(.draggable) {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.area span.draggable {
+  text-align: center;
+  display: block;
+  width: 100%;
+  background: #639bf6;
+  color: #2c2c54;
+  margin-bottom: 5px;
+}
+
+/* demo multiline */
+.area-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.area-flex > div {
+  width: 25%;
+  flex-wrap: wrap;
+}
+
+/* demo togglable */
+#dad-togglable {
+  transition: all 0.5s;
+}
+
+#dad-togglable[data-dad-active="false"] {
+  opacity: 0.5;
+}
+
+/* demo dropzone*/
+.dropzones .dad-droppable > div {
+  width: 50%;
+}
+
+.dad-droppable {
+  border: 2px dashed #639bf6;
+  min-height: 124px;
+}
+
+.area-1 {
+  justify-content: center;
+}
+
+.area-1 .item {
+  width: 100%;
+  background-color: #ea8685;
+}
+
+.area-3 > div {
+  width: 100%;
+}
+
+.area:before {
+  font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+  position: absolute;
+  color: #639bf6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.area-1:before {
+  content: "Drop here to delete";
+}
+
+.area-2:before {
+  content: "Numbers";
+}
+
+.area-3:before {
+  content: "Letters";
+}
+
+/* footer section */
+footer {
+  background: #18182b;
+  text-align: center;
+  color: #639bf6;
+  padding: 30px 10px;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+footer a {
+  color: #639bf6;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #639bf6;
+}

@@ -68,7 +68,8 @@ h3 {
 .button {
   border: 4px solid #639bf6;
   padding: 10px;
-  display: inline-block;
+  display: block;
+  float: left;
   color: #639bf6;
   font-weight: bold;
   cursor: pointer;

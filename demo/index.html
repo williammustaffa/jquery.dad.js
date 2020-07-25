@@ -297,12 +297,15 @@
     <script src="scripts/jquery.dad.js"></script>
     <script>
       $(function () {
-        $("#dad-logo").dad();
+        $("#dad-logo").dad({
+          placeholderTemplate: "<div style=\"border: 4px dashed #639bf6\"></div>"
+        });
 
         // Common dad
         $(".dad-example").dad({
           exchangeable: false,
-          placeholder: { target: ".item" },
+          placeholderTarget: ".item",
+          placeholderTemplate: "<div style=\"border: 4px dashed #639bf6\"></div>"
         });
 
         // Multiline/dynamic example
@@ -321,13 +324,15 @@
         // Dragable example
         $("#dad-draggable").dad({
           draggable: ".draggable",
-          placeholder: { target: ".item-draggable" },
+          placeholderTarget: ".item-draggable",
+          placeholderTemplate: "<div style=\"border: 4px dashed #639bf6\"></div>"
         });
 
         // Activate and deactivate example
         var togglable = $("#dad-togglable").dad({
           active: false,
-          placeholder: { target: ".item" },
+          placeholderTarget: ".item",
+          placeholderTemplate: "<div style=\"border: 4px dashed #639bf6\"></div>"
         });
 
         $("#activate").on("click", function () {
@@ -348,7 +353,8 @@
 
         // Dropzone example
         var droppable = $(".dad-droppable").dad({
-          placeholder: { target: ".item" },
+          placeholderTarget: ".item",
+          placeholderTemplate: "<div style=\"border: 4px dashed #639bf6\"></div>"
         });
 
         $(".area-1").on("dadDropEnd", function (e, element) {

@@ -75,7 +75,7 @@ console.log(instance.active); // prints false
 
 ### draggable
 
-**Type:** `string`_(selector)_
+**Type:** `string`_(selector)_ | `false`
 **Default value:** `false`
 
 **Description:**
@@ -112,8 +112,8 @@ Transition time in ms of the drag animation
 
 ### placeholderTarget
 
-**Type:** `string`_(selector)_
-**Default value:** `null`
+**Type:** `string`_(selector)_ | `false`
+**Default value:** `false`
 
 **Description:**
 
@@ -122,7 +122,7 @@ The target element within the current child to be covered by the placeholder.
 ### placeholderTemplate
 
 **Type:** `string`_(selecor)_
-**Default value:** `null`
+**Default value:** `<div />`
 
 **Description:**
 

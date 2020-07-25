@@ -278,6 +278,9 @@
       var animateToX = $target.offset().left - $current.offset().left;
       var animateToY = $target.offset().top - $current.offset().top;
 
+      // Trigger callback
+      $($current).trigger("dadDropStart", [$target[0]]);
+
       // Do transition from clone to target
       $clone.animate(
         {
@@ -295,6 +298,9 @@
           // Normalize target
           $target.removeAttr("data-dad-target");
           $target.css("visibility", "");
+
+          // On dad dropped
+          $($current).trigger("dadDropEnd", [$target[0]]);
         }
       );
 

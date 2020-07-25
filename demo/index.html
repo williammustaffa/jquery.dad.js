@@ -249,7 +249,7 @@
       <h3 class="text-center">Dropzones</h3>
       <div class="row">
         <div class="col-xs-12">
-          <div class="row area area-flex dad-droppable">
+          <div class="row area-1 area area-flex dad-droppable">
             <div>
               <div class="item"><span>1</span></div>
             </div>
@@ -265,7 +265,7 @@
           </div>
         </div>
         <div class="col-xs-6 dropzones">
-          <div class="row area area-flex dad-droppable">
+          <div class="row area-2 area area-flex dad-droppable">
             <div>
               <div class="item"><span>A</span></div>
             </div>
@@ -281,7 +281,7 @@
           </div>
         </div>
         <div class="col-xs-6">
-          <div class="row area area-flex dad-droppable">
+          <div class="row area-3 area area-flex dad-droppable">
             <div>
               <div class="item"><span>X</span></div>
             </div>
@@ -361,6 +361,19 @@
         // Dropzone example
         var droppable = $(".dad-droppable").dad({
           placeholder: { target: ".item" },
+        });
+
+        $(".area-1").on("dadDropEnd", function (e, element) {
+          console.log("praia", element);
+          alert("Placed on area 1: " + $(element).text());
+        });
+
+        $(".area-2").on("dadDropEnd", function (e, element) {
+          alert("Placed on area 2: " + $(element).text());
+        });
+
+        $(".area-3").on("dadDropEnd", function (e, element) {
+          alert("Placed on area 3: " + $(element).text());
         });
       });
     </script>

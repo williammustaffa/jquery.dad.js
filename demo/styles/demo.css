@@ -33,6 +33,7 @@ h3 {
   background: none !important;
   margin-bottom: 50px;
   width: 500px;
+  max-width: 75%;
   align-self: center;
 }
 
@@ -63,6 +64,7 @@ h3 {
 
 .cover-title {
   color: #639bf6;
+  padding: 10px;
 }
 
 .button {
@@ -73,6 +75,7 @@ h3 {
   color: #639bf6;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
 }
 
 .button.active {
@@ -102,6 +105,15 @@ h3 {
 
 .area:not(.bootstrap) > div {
   padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .area:not(.bootstrap) > div {
+    padding: 1px;
+  }
+  .button {
+    width: 50%;
+  }
 }
 
 /* bootstrap style */
@@ -156,7 +168,7 @@ h3 {
 
 .dad-droppable {
   border: 2px dashed #639bf6;
-  min-height: 108px;
+  min-height: 11.6vw;
 }
 
 /* footer section */

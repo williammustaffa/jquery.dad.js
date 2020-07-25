@@ -23,12 +23,14 @@ DAD: A simple and awesome Drag And Drop plugin!
 
 ## Installation
 
-And the dad plugin file after jquery.
+Import dad plugin file after jquery.
 
 ```
 <script src='jquery.min.js'></script>
 <script src='jquery.dad.min.js'></script>
 ```
+
+and that's it!
 
 ## Usage
 
@@ -39,7 +41,7 @@ Create a group of DOM elements that can be resorted via drag and drop inside the
 <div class="demo">
   <div>...</div>
   <div>...</div>
-  <div>...</div>
+  <div>...</div>`
   <div>...</div>
 </div>
 

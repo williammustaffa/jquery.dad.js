@@ -1,5 +1,5 @@
 /*!
- * jquery.dad.js v1 (http://konsolestudio.com/dad)
+ * jquery.dad.js v2 (http://konsolestudio.com/dad)
  * Author William Lima
  */
 

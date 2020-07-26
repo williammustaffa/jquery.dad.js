@@ -1,10 +1,25 @@
 /*!
- * jquery.dad.js v1 (http://konsolestudio.com/dad)
+ * jquery.dad.js v2 (http://konsolestudio.com/dad)
  * Author William Lima
  */
 
 (function ($) {
   "use strict";
+
+  var global = {};
+
+  global.supportsTouch = "ontouchstart" in window || navigator.msMaxTouchPoints;
+  global.shouldScroll = true;
+
+  if (global.supportsTouch) {
+    function scrollListener(e) {
+      if (!global.shouldScroll) {
+        e.preventDefault();
+      }
+    }
+
+    document.addEventListener("touchmove", scrollListener, { passive: false });
+  }
 
   /**
    * Mouse constructor
@@ -22,10 +37,7 @@
    */
   DadMouse.prototype.update = function (e) {
     // Check if it is touch
-    if (
-      ("ontouchstart" in window || navigator.msMaxTouchPoints) &&
-      e.type == "touchmove"
-    ) {
+    if (global.supportsTouch && e.type == "touchmove") {
       var targetEvent = e.originalEvent.touches[0];
       var mouseTarget = document.elementFromPoint(
         targetEvent.clientX,
@@ -235,6 +247,8 @@
     $target.attr("data-dad-target", true);
 
     // Setting variables
+    if (global.supportsTouch) global.shouldScroll = false;
+
     this.dragging = true;
     this.$target = $target;
     this.$clone = $clone;
@@ -273,6 +287,8 @@
 
     // Finish dragging if is dragging
     if (this.dragging) {
+      if (global.supportsTouch) global.shouldScroll = true;
+
       var $current = this.$current;
       var $target = this.$target;
       var $clone = this.$clone;

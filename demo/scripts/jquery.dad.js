@@ -12,11 +12,11 @@
   global.shouldScroll = true;
 
   if (global.supportsTouch) {
-    function scrollListener(e) {
+    var scrollListener = function (e) {
       if (!global.shouldScroll) {
         e.preventDefault();
       }
-    }
+    };
 
     document.addEventListener("touchmove", scrollListener, { passive: false });
   }

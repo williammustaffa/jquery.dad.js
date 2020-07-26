@@ -1,7 +1,6 @@
 body {
   font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
   font-weight: 100;
-  height: 800px;
   background: #2c2c54;
   overflow-x: hidden;
 }
@@ -198,25 +197,14 @@ h3 small {
   width: 100%;
 }
 
-.area:before {
+.area-1:before {
+  content: "Drop here to delete";
   font-family: Source Sans Pro, Helvetica Neue, Arial, sans-serif;
   position: absolute;
   color: #639bf6;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.area-1:before {
-  content: "Drop here to delete";
-}
-
-.area-2:before {
-  content: "Numbers";
-}
-
-.area-3:before {
-  content: "Letters";
 }
 
 /* footer section */

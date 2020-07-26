@@ -41,7 +41,7 @@ Create a group of DOM elements that can be resorted via drag and drop inside the
 <div class="demo">
   <div>...</div>
   <div>...</div>
-  <div>...</div>`
+  <div>...</div>
   <div>...</div>
 </div>
 

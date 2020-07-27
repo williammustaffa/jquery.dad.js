@@ -225,3 +225,12 @@ footer a:hover {
   text-decoration: none;
   color: #639bf6;
 }
+
+/* custom dad class */
+.dad-placeholder {
+  border: 4px dashed #639bf6;
+}
+
+.area-1 .dad-placeholder {
+  border: none;
+}

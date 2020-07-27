@@ -7,12 +7,17 @@ DAD: A simple and awesome Drag And Drop plugin!
 - [Installation](#installation)
 - [Usage](#usage)
 - [Options](#options)
+
   - [active](#active)
   - [draggable](#draggable)
   - [exchangeable](#exchangeable)
   - [transition](#transition)
   - [placeholderTarget](#placeholdertarget)
   - [placeholderTemplate](#placeholdertemplate)
+  - [cloneClass](#cloneClass)
+  - [targetClass](#targetClass)
+  - [placeHolderClass](#placeHolderClass)
+
 - [Methods](#methods)
   - [activate](#activate)
   - [deactivate](#deactivate)
@@ -38,7 +43,7 @@ Create a group of DOM elements that can be resorted via drag and drop inside the
 
 ```
 
-<div class="demo">
+<div class="my-container">
   <div>...</div>
   <div>...</div>
   <div>...</div>
@@ -138,6 +143,64 @@ $(".my-container").dad({
 
 ```
 
+### cloneClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-clone`
+
+**Description:**
+
+This is a helper class added to the _clone_ element.
+
+```
+
+$(".my-container").dad({
+  cloneClass: "another-clone-class"
+})
+
+```
+
+### targetClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-target`
+
+**Description:**
+
+This is a helper class added to the _target_ element.
+
+```
+// javascript
+$(".my-container").dad({
+  targetClass: "another-target-class"
+})
+
+```
+
+### placeholderClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-placeholder`
+
+**Description:**
+
+This is a helpers class added to the _placeolder_ element.
+
+```
+$(".my-container").dad({
+  targetClass: "another-target-class"
+})
+```
+
+You can add those cool dashed borders lie:
+
+```
+.dad-placeholder {
+  border: 4px dashed #639bf6;
+}
+
+```
+
 ## Methods
 
 ### activate
@@ -164,25 +227,61 @@ instance.deactivate();
 
 ## Events
 
-### dadDropStart
+### dadDragStart
 
-This event is triggered imediatelly after the user drops the element. The callback sends the dropped element (as DOM node) as the second argument.
+Event triggered when user starts dragging an element.
 
 ```
 
-$(".my-container").on("dadDropStart", function (e, droppedElement) {
+$(".my-container").on("dadDragStart", function (e, targetElement) {
   // do your thing here
 })
 
 ```
 
-### dadDropStart
+### dadDragStart
 
-This event is triggered when the dropping animation ends. The callback sends the dropped element (as DOM node) as the second argument as well.
+Event triggered when the current dragged element has its position updated.
 
 ```
 
-$(".my-container").on("dadDropEnd", function (e, droppedElement) {
+$(".my-container").on("onDadUpdate", function (e, targetElement) {
+  // do your thing here
+})
+
+```
+
+### dadDragExchange
+
+Event triggered when the containers exchange children.
+
+```
+
+$(".my-container").on("onDadUpdate", function (e, sourceContainer, targetContainer) {
+  // do your thing here
+})
+
+```
+
+### dadDragEnd
+
+Event triggered when user drops an element, this event is triggered before the dropping animation.
+
+```
+
+$(".my-container").on("dadDragEnd", function (e, targetElement) {
+  // do your thing here
+})
+
+```
+
+### dadDrop
+
+Event triggered when the element is dropped, this event is triggered after the dropping animation.
+
+```
+
+$(".my-container").on("dadDrop", function (e, droppedElement) {
   // do your thing here
 })
 

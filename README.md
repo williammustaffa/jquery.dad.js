@@ -22,8 +22,11 @@ DAD: A simple and awesome Drag And Drop plugin!
   - [activate](#activate)
   - [deactivate](#deactivate)
 - [Events](#events)
-  - [dadDropStart](#daddropstart)
-  - [dadDropStart](#daddropstart-1)
+  - [dadDragStart](#dadDragStart)
+  - [dadDragExchange](#dadDragExchange)
+  - [dadDragUpdate](#dadDragUpdate)
+  - [dadDragEnd](#dadDragEnd)
+  - [dadDrop](#dadDrop)
 - [Demos](#demos)
 
 ## Installation

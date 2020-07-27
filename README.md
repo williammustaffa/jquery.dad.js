@@ -7,12 +7,17 @@ DAD: A simple and awesome Drag And Drop plugin!
 - [Installation](#installation)
 - [Usage](#usage)
 - [Options](#options)
+
   - [active](#active)
   - [draggable](#draggable)
   - [exchangeable](#exchangeable)
   - [transition](#transition)
   - [placeholderTarget](#placeholdertarget)
   - [placeholderTemplate](#placeholdertemplate)
+  - [cloneClass](#cloneClass)
+  - [targetClass](#targetClass)
+  - [placeHolderClass](#placeHolderClass)
+
 - [Methods](#methods)
   - [activate](#activate)
   - [deactivate](#deactivate)
@@ -38,7 +43,7 @@ Create a group of DOM elements that can be resorted via drag and drop inside the
 
 ```
 
-<div class="demo">
+<div class="my-container">
   <div>...</div>
   <div>...</div>
   <div>...</div>
@@ -135,6 +140,64 @@ Enable the full customization of the placeholder by passing a HTML string. E.g.
 $(".my-container").dad({
   placeholderTemplate: "<div style=\"border: 1px dashed black\">i'm a placeholder</div>"
 })
+
+```
+
+### cloneClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-clone`
+
+**Description:**
+
+This is a helper class added to the _clone_ element.
+
+```
+
+$(".my-container").dad({
+  cloneClass: "another-clone-class"
+})
+
+```
+
+### targetClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-target`
+
+**Description:**
+
+This is a helper class added to the _target_ element.
+
+```
+// javascript
+$(".my-container").dad({
+  targetClass: "another-target-class"
+})
+
+```
+
+### placeholderClass
+
+**Type:** `string`_(selecor)_
+**Default value:** `dad-placeholder`
+
+**Description:**
+
+This is a helpers class added to the _placeolder_ element.
+
+```
+$(".my-container").dad({
+  targetClass: "another-target-class"
+})
+```
+
+You can add those cool dashed borders lie:
+
+```
+.dad-placeholder {
+  border: 4px dashed #639bf6;
+}
 
 ```
 

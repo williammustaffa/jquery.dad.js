@@ -86,9 +86,12 @@
     active: true,
     draggable: false,
     exchangeable: true,
-    transition: 200,
     placeholderTarget: false,
     placeholderTemplate: "<div />",
+    placeholderClass: "dad-placeholder",
+    targetClass: "dad-target",
+    cloneClass: "dad-clone",
+    transition: 200,
   };
 
   /**
@@ -216,8 +219,9 @@
    * @param {Event}
    */
   Dad.prototype.start = function (e) {
-    // Set target and get its metrics
+    var options = this.options;
     var $target = this.$target;
+    var $current = this.$current;
 
     // Add clone
     var $clone = $target.clone().css({
@@ -229,7 +233,7 @@
     });
 
     // Add placeholder
-    var $placeholder = $(this.options.placeholderTemplate).css({
+    var $placeholder = $(options.placeholderTemplate).css({
       position: "absolute",
       pointerEvents: "none",
       zIndex: 9998,
@@ -243,8 +247,13 @@
     this.mouse.offsetX = this.mouse.positionX - $target.offset().left;
     this.mouse.offsetY = this.mouse.positionY - $target.offset().top;
 
+    // Hide target
     $target.css("visibility", "hidden");
-    $target.attr("data-dad-target", true);
+
+    // Add custom classes
+    $target.addClass(options.targetClass);
+    $clone.addClass(options.cloneClass);
+    $placeholder.addClass(options.placeholderClass);
 
     // Setting variables
     if (global.supportsTouch) global.shouldScroll = false;
@@ -255,7 +264,7 @@
     this.$placeholder = $placeholder;
 
     // Add elements to container
-    this.$current.append($placeholder).append($clone);
+    $current.append($placeholder).append($clone);
 
     // Set clone and placeholder position
     this.updateClonePosition();
@@ -289,6 +298,7 @@
     if (this.dragging) {
       if (global.supportsTouch) global.shouldScroll = true;
 
+      var options = this.options;
       var $current = this.$current;
       var $target = this.$target;
       var $clone = this.$clone;
@@ -315,7 +325,7 @@
           $placeholder.remove();
 
           // Normalize target
-          $target.removeAttr("data-dad-target");
+          $target.removeClass(options.targetClass);
           $target.css("visibility", "");
 
           // On dad dropped

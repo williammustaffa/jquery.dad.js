@@ -230,3 +230,7 @@ footer a:hover {
 .dad-placeholder {
   border: 4px dashed #639bf6;
 }
+
+.area-1 .dad-placeholder {
+  border: none;
+}

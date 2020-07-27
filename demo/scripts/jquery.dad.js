@@ -161,7 +161,7 @@
       }
     }
 
-    // Set container comunication
+    // Set container communication
     this.$container.on("mouseenter touchenter", function (e) {
       if (self.$current) {
         var $this = $(this);
@@ -171,7 +171,6 @@
         var shouldExchange = self.dragging && isNotCurrent && isExchangeable;
 
         if (shouldExchange) {
-          self.$current = $this;
           self.updatePlaceholder(e, $this, true);
         }
       }
@@ -269,6 +268,9 @@
     // Set clone and placeholder position
     this.updateClonePosition();
     this.updatePlaceholderPosition();
+
+    // Trigger custom events
+    $($current).trigger("dadDragStart", [$target[0]]);
   };
 
   /**
@@ -308,7 +310,7 @@
       var animateToY = $target.offset().top - $current.offset().top;
 
       // Trigger callback
-      $($current).trigger("dadDropStart", [$target[0]]);
+      $($current).trigger("dadDragEnd", [$target[0]]);
 
       // Do transition from clone to target
       $clone.animate(
@@ -329,7 +331,7 @@
           $target.css("visibility", "");
 
           // On dad dropped
-          $($current).trigger("dadDropEnd", [$target[0]]);
+          $($current).trigger("dadDrop", [$target[0]]);
         }
       );
 
@@ -363,19 +365,33 @@
    * checking the current placeholder position
    */
   Dad.prototype.updatePlaceholder = function (e, $element, isContainer) {
+    var $current = this.$current;
+    var $target = this.$target;
+    var $clone = this.$clone;
+    var $placeholder = this.$placeholder;
+
     if (isContainer) {
       // Move target
-      $element.append(this.$target);
+      $element.append($target);
 
       // And also move dad elements for positioning
-      $element.append(this.$clone);
-      $element.append(this.$placeholder);
+      $element.append($clone);
+      $element.append($placeholder);
+
+      // Update current container
+      this.$current = $element;
+
+      // Exchange custom event
+      $($current).trigger("dadDragExchange", [$current[0], $element[0]]);
     } else {
-      if ($element.index() > this.$target.index()) {
-        $element.after(this.$target);
+      if ($element.index() > $target.index()) {
+        $element.after($target);
       } else {
-        $element.before(this.$target);
+        $element.before($target);
       }
+
+      // Update custom event
+      $($current).trigger("dadDragUpdate", [$target[0]]);
     }
 
     this.updatePlaceholderPosition();

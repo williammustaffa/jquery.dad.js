@@ -227,25 +227,61 @@ instance.deactivate();
 
 ## Events
 
-### dadDropStart
+### dadDragStart
 
-This event is triggered imediatelly after the user drops the element. The callback sends the dropped element (as DOM node) as the second argument.
+Event triggered when user starts dragging an element.
 
 ```
 
-$(".my-container").on("dadDropStart", function (e, droppedElement) {
+$(".my-container").on("dadDragStart", function (e, targetElement) {
   // do your thing here
 })
 
 ```
 
-### dadDropStart
+### dadDragStart
 
-This event is triggered when the dropping animation ends. The callback sends the dropped element (as DOM node) as the second argument as well.
+Event triggered when the current dragged element has its position updated.
 
 ```
 
-$(".my-container").on("dadDropEnd", function (e, droppedElement) {
+$(".my-container").on("onDadUpdate", function (e, targetElement) {
+  // do your thing here
+})
+
+```
+
+### dadDragExchange
+
+Event triggered when the containers exchange children.
+
+```
+
+$(".my-container").on("onDadUpdate", function (e, sourceContainer, targetContainer) {
+  // do your thing here
+})
+
+```
+
+### dadDragEnd
+
+Event triggered when user drops an element, this event is triggered before the dropping animation.
+
+```
+
+$(".my-container").on("dadDragEnd", function (e, targetElement) {
+  // do your thing here
+})
+
+```
+
+### dadDrop
+
+Event triggered when the element is dropped, this event is triggered after the dropping animation.
+
+```
+
+$(".my-container").on("dadDrop", function (e, droppedElement) {
   // do your thing here
 })
 

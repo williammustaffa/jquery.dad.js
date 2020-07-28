@@ -81,7 +81,7 @@ You can call options width a JSON object.
 
 **Description:**
 
-Setting it to false prevents the containers to start dragging. You can check if a container is enabled or disabled by the attribute `dada-dad-active` or using the instance like:
+Setting it to false prevents the containers to start dragging. You can check if a container is enabled or disabled by the attribute `data-dad-active` or using the instance like:
 
 ```
 

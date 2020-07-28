@@ -125,7 +125,7 @@ Allows containers of the same type _(called with the same `.dad` call)_ to excha
 
 **Description:**
 
-Transition time in ms of the drag animation
+Transition time in ms of the drop animation
 
 ### placeholderTarget
 
@@ -202,7 +202,7 @@ $(".my-container").dad({
 })
 ```
 
-You can add those cool dashed borders lie:
+You can add those cool dashed borders like:
 
 ```
 .dad-placeholder {

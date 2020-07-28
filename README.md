@@ -138,7 +138,7 @@ The target element within the current child to be covered by the placeholder.
 
 ### placeholderTemplate
 
-**Type:** `string`_(selecor)_
+**Type:** `string`_(selector)_
 **Default value:** `<div />`
 
 **Description:**
@@ -155,7 +155,7 @@ $(".my-container").dad({
 
 ### cloneClass
 
-**Type:** `string`_(selecor)_
+**Type:** `string`_(selector)_
 **Default value:** `dad-clone`
 
 **Description:**
@@ -172,7 +172,7 @@ $(".my-container").dad({
 
 ### targetClass
 
-**Type:** `string`_(selecor)_
+**Type:** `string`_(selector)_
 **Default value:** `dad-target`
 
 **Description:**
@@ -189,7 +189,7 @@ $(".my-container").dad({
 
 ### placeholderClass
 
-**Type:** `string`_(selecor)_
+**Type:** `string`_(selector)_
 **Default value:** `dad-placeholder`
 
 **Description:**

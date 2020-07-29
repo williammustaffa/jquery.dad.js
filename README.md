@@ -72,7 +72,7 @@ $('.my-container').dad();
 
 ## Options
 
-You can call options width a JSON object.
+You can call options with a JSON object.
 
 ### active
 

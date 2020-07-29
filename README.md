@@ -194,7 +194,7 @@ $(".my-container").dad({
 
 **Description:**
 
-This is a helpers class added to the _placeolder_ element.
+This is a helpers class added to the _placeholder_ element.
 
 ```
 $(".my-container").dad({

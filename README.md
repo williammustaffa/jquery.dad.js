@@ -1,6 +1,6 @@
 # jquery.dad.js
 
-DAD: A simple and awesome Drag And Drop plugin!
+A simple and awesome Drag And Drop plugin!
 
 ## Browsers support
 
@@ -72,7 +72,7 @@ $('.my-container').dad();
 
 ## Options
 
-You can call options with a JSON object.
+The options allow you to better customize your drag and drop implementation by passing a JSON object when calling `dad` plugin. See below all options in details:
 
 ### active
 
@@ -213,6 +213,8 @@ You can add those cool dashed borders like:
 
 ## Methods
 
+Methods allow you to control your container from Dad's class instance. See below:
+
 ### activate
 
 Set the container's `active` state to `true`
@@ -236,6 +238,8 @@ instance.deactivate();
 ```
 
 ## Events
+
+Events are provided to handle the drag and drop actions such as drag start, drag end, drop... See below:
 
 ### dadDragStart
 

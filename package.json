@@ -1,6 +1,6 @@
 {
   "name": "jquery.dad.js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "drag and drop plugin",
   "main": "index.js",
   "scripts": {

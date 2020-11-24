@@ -165,6 +165,34 @@ h3 small {
   flex-wrap: wrap;
 }
 
+/* demo horizontal scroll */
+#dad-horizontal {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+#dad-horizontal > div {
+  display: inline-block;
+}
+
+#dad-horizontal .item {
+  width: 200px;
+}
+
+/* demo vertical scroll */
+#dad-vertical {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#dad-vertical > div {
+  display: block;
+}
+
+#dad-vertical .item {
+  width: 100%;
+}
+
 /* demo togglable */
 #dad-togglable {
   transition: all 0.5s;

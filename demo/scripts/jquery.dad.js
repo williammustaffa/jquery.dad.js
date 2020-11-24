@@ -306,8 +306,8 @@
       var $clone = this.$clone;
       var $placeholder = this.$placeholder;
 
-      var animateToX = $target.offset().left - $current.offset().left;
-      var animateToY = $target.offset().top - $current.offset().top;
+      var animateToX = $target.offset().left - this.getContainerX();
+      var animateToY = $target.offset().top - this.getContainerY();
 
       // Trigger callback
       $($current).trigger("dadDragEnd", [$target[0]]);
@@ -347,17 +347,31 @@
   };
 
   /**
+   * Get current container X position, including horizontal scroll
+   */
+  Dad.prototype.getContainerX = function () {
+    return this.$current.offset().left - this.$current.scrollLeft()
+  }
+
+  /**
+   * Get current container Y position, including vertical scroll
+   */
+  Dad.prototype.getContainerY = function () {
+    return this.$current.offset().top - this.$current.scrollTop()
+  }
+
+  /**
    * Dad update clone position based on the mouse position
    */
   Dad.prototype.updateClonePosition = function () {
     // Get positions
     var targetX =
-      this.mouse.positionY - this.$current.offset().top - this.mouse.offsetY;
+      this.mouse.positionX - this.getContainerX() - this.mouse.offsetX;
     var targetY =
-      this.mouse.positionX - this.$current.offset().left - this.mouse.offsetX;
+      this.mouse.positionY - this.getContainerY() - this.mouse.offsetY;
 
     // Update clone
-    this.$clone.css({ top: targetX, left: targetY });
+    this.$clone.css({ top: targetY, left: targetX });
   };
 
   /**
@@ -407,8 +421,9 @@
       ? this.$target.find(placeholderTarget)
       : this.$target;
 
-    var targetTop = $target.offset().top - this.$current.offset().top;
-    var targetLeft = $target.offset().left - this.$current.offset().left;
+    var targetTop = $target.offset().top - this.getContainerY();
+    var targetLeft = $target.offset().left - this.getContainerX();
+
     var targetHeight = $target.outerHeight();
     var targetWidth = $target.outerWidth();
 

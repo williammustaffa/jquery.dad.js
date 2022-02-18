@@ -300,3 +300,7 @@ $(".my-container").on("dadDrop", function (e, droppedElement) {
 })
 
 ```
+
+## Demos
+
+Check the demos at [plugin website](http://konsole.studio/dad)

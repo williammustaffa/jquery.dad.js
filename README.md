@@ -253,13 +253,13 @@ $(".my-container").on("dadDragStart", function (e, targetElement) {
 
 ```
 
-### dadDragStart
+### dadDragUpdate
 
 Event triggered when the current dragged element has its position updated.
 
 ```
 
-$(".my-container").on("onDadUpdate", function (e, targetElement) {
+$(".my-container").on("dadDragUpdate", function (e, targetElement) {
   // do your thing here
 })
 
@@ -271,7 +271,7 @@ Event triggered when the containers exchange children.
 
 ```
 
-$(".my-container").on("onDadUpdate", function (e, sourceContainer, targetContainer) {
+$(".my-container").on("dadDragExchange", function (e, sourceContainer, targetContainer) {
   // do your thing here
 })
 
@@ -300,7 +300,3 @@ $(".my-container").on("dadDrop", function (e, droppedElement) {
 })
 
 ```
-
-## Demos
-
-Check the demos at [plugin website](http://konsole.studio/dad)
